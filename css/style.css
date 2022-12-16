@@ -35,11 +35,15 @@ body{
 /* NAVIGATION BAR  */
 nav{
     background-color: var(--WhiteColor);
+    position: fixed;
+    top: 0%;
     display: flex;
     align-items: center;
     height: 50px;
+    width: 100%;
     padding: 0% 5%;
     font-size: 0.8rem;
+    z-index: 10;
 }
 .logo-icon{
     margin-right: 50px;
@@ -53,7 +57,8 @@ nav{
     background-color: var(--OfWhiteColor);
 }
 main{
-    min-height: calc(100vh - 196px);
+    min-height: calc(100vh - 146px);
+    padding-top: 50px;
 }
 
 /* FOOTER  */

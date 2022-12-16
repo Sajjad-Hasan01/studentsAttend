@@ -37,6 +37,7 @@ td:first-child, td:last-child{
     top: 0%;
     left: 0%;
     background-color: var(--PrimaryDropColor);
+    z-index: 11;
 }
 .modal{
     height: 70%;
@@ -180,6 +181,7 @@ td:first-child, td:last-child{
     font-family: inherit;
     font-size: inherit;
     text-transform: capitalize;
+    z-index: 0;
 }
 .file-input::-webkit-file-upload-button {
     display: none;
