@@ -1,0 +1,27 @@
+/*   LOGIN PAGE    */
+form{
+    background-color: var(--WhiteColor);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 5% 10%;
+    border-radius: 15px;
+}
+.chboxlbl{
+    color: var(--SecTextColor);
+    text-transform: capitalize;
+}
+.checkbox{
+    scale: 1.5;
+    margin-right: 10px;
+}
+#errMsg{
+    color: var(--PrimaryColor);
+    text-transform: capitalize;
+    margin-top: 30px;
+}

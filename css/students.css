@@ -1,0 +1,217 @@
+/*   STUDENTS PAGE     */
+
+/* STUDENTS TABLE */
+tr{
+    cursor: pointer;
+}
+.name-header, .email-header{
+    text-align: left;
+    width: calc(50% - 100px);
+}
+th:first-child,th:last-child{
+    width: 100px;
+}
+td:first-child, td:last-child{
+    text-align: center;
+}
+.name-cell{
+    text-transform: capitalize;
+    font-weight: 600;
+    font-size: 1.2rem;
+}
+.email-cell{
+    font-size: 1.2rem;
+}
+.dspStatus{
+    height: 30px;
+    width: 30px;
+    border-radius: 50%;
+    margin: auto;
+}
+
+/*   STUDENT MODAL     */
+.modal-bg{
+    height: 100vh;
+    width: 100vw;
+    position: fixed;
+    top: 0%;
+    left: 0%;
+    background-color: var(--PrimaryDropColor);
+}
+.modal{
+    height: 70%;
+    width: 70%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    background-color: var(--WhiteColor);
+    border-radius: 15px;
+}
+.modal-close{
+    background-color: var(--PrimaryColor);
+    color: var(--WhiteColor);
+    height: 30px;
+    width: 30px;
+    border-radius: 15px;
+    margin: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 700;
+    cursor: pointer;
+}
+.modal-close:hover{
+    box-shadow: var(--PrimaryDropColor) 0px 0px 5px;
+}
+.modal-content{
+    height: calc(100% - 140px);
+    padding: 0% 30px 40px;
+}
+.modal-content >div:first-child{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    height: calc(100% - 50px);
+}
+.modal-content img{
+    border-radius: 50%;
+    height: 100px;
+    width: 100px;
+}
+.modal-content >div:first-child>div{
+    width: calc(100% - 200px);
+}
+.modal-content>div:first-child>div>div{
+    display: flex;
+    align-items: center;
+}
+.modal-content>div:first-child>div>div>.dspStatus{
+    margin: 0;
+}
+.std-name{
+    text-transform: capitalize;
+    color: var(--MainTextColor);
+}
+.std-email{
+    color: #777;
+}
+.std-group{
+    text-transform: capitalize;
+    font-weight: 600;
+    margin: 0% 30px;
+    color: #777;
+    font-size: 1.5rem;
+}
+.attend-log {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    flex-wrap: nowrap;
+    overflow-x: scroll;
+    overflow-y: hidden;
+    border-top: 1px var(--ThrdTextColor) solid;
+}
+/* Scroll width */
+.attend-log::-webkit-scrollbar {
+    height: 15px;
+}
+/* Scroll Track */
+::-webkit-scrollbar-track {
+    background: none;
+}
+/* Scroll Handle */
+::-webkit-scrollbar-thumb {
+    background: #ccc;
+    border-radius: 8px;
+}
+.lec-log {
+    display: inline-block;
+    min-width: 50px;
+    height: 50px;
+    margin-right: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.lec-title{
+    color: var(--SecTextColor);
+    text-transform: uppercase;
+    font-weight: 600;
+    font-size: 1rem;
+    text-align: center;
+}
+.lec-attend{
+    font-weight: 700;
+    font-size: 1rem;
+    text-align: center;
+    color: #777;
+}
+.modal-footer{
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.add-std-sec{
+    background-color: var(--WhiteColor);
+    padding: 5% 10%;
+    border-radius: 15px;
+    margin: 10% auto;
+    width: 40%;
+    /* display: inline-block; */
+}
+.add-std-form{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.file-input{
+    width: 248px;
+    height: 40px;
+    margin: 15px 0px;
+    padding: 0% 20px;
+    border-radius: 3px;
+    color: transparent;
+    background-color: var(--OfWhiteColor);
+    position: relative;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: inherit;
+    text-transform: capitalize;
+}
+.file-input::-webkit-file-upload-button {
+    display: none;
+}
+.file-input::before {
+    content: 'upload photo \2191';
+    display: inline-block;
+    white-space: nowrap;
+    color: var(--SecTextColor);
+    position: absolute;
+    top: 50%;
+    translate: 0 -50%;
+    font-family: inherit;
+    font-size: inherit;
+    text-transform: capitalize;
+}
+.file-input::after {
+    content: '';
+    display: inline-block;
+    white-space: nowrap;
+    position: absolute;
+    top: 50%;
+    left: 60%;
+    translate: 0% -60%;
+    font-family: inherit;
+    font-size: inherit;
+    text-transform: capitalize;
+    color: var(--SecTextColor);
+}
+.file-input:hover, .file-input:focus {
+    box-shadow: var(--PrimaryDropColor) 0px 0px 5px;
+}
+.add-std-form button{
+    margin-top: 40px;
+}

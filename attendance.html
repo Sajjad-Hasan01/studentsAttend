@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Attendance</title>
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/attend.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <script defer src="./js/script.js"></script> 
+
+</head>
+<body>
+    <!-- NAVIGATION BAR -->
+    <header-component></header-component>
+
+    <!-- MAIN PAGE CONTENT -->
+    <main>
+        <!--     ADD LECTURE INPUT      -->
+        <div class="add-lecture">
+            <input type="text" class="form-control input add-lecture-field" name="" id="" placeholder="start new lecture">
+            <input type="submit" class="form-control btn" value="+">
+        </div>
+
+        <!--     FILTER BAR      -->
+        <div class="filter-bar">
+            <div class="sortCon">
+                <label for="AtoZ" class="filter-btn active-btn">a-z &#x2193;<input type="radio" name="sort" id="AtoZ" class="hide-control" checked></label>
+                <label for="ZtoA" class="filter-btn ">z-a &#x2191;<input type="radio" name="sort" id="ZtoA" class="hide-control"></label>
+            </div>
+            <div class="groupCon">
+                <label for="gA" class="filter-btn ">a<input type="checkbox" name="group" id="gA" class="hide-control"></label>
+                <label for="gB" class="filter-btn ">b<input type="checkbox" name="group" id="gB" class="hide-control"></label>
+                <label for="gC" class="filter-btn ">c<input type="checkbox" name="group" id="gC" class="hide-control"></label>
+                <label for="gD" class="filter-btn ">d<input type="checkbox" name="group " id="gD" class="hide-control"></label>
+                <label for="gE" class="filter-btn ">e<input type="checkbox" name="group" id="gE" class="hide-control"></label>
+            </div>
+            <div class="statusCon">
+                <label for="continuous" class="filter-btn ">continuous<input type="checkbox" name="dspstatus" id="continuous" class="hide-control"></label>
+                <label for="warning" class="filter-btn ">warning<input type="checkbox" name="dspstatus" id="warning" class="hide-control"></label>
+                <label for="separation" class="filter-btn ">separation<input type="checkbox" name="dspstatus" id="separation" class="hide-control"></label>
+            </div>
+        </div>
+
+        <!--     TABLE SECTION      -->
+        <div class="table-container">
+            <table class="table">
+                <tr>
+                    <th>photo</th>
+                    <th class="name-header">full name</th>
+                    <th>attend</th>
+                </tr>
+                <tr>
+                    <td><img src="./image/profile_photo.svg" alt="profile photo"></td>
+                    <td id="" class="name-cell">sajjad hasan salman</td>
+                    <td><input type="checkbox" name="" id=""></td>
+                </tr>
+                <tr>
+                    <td><img src="./image/profile_photo.svg" alt="profile photo"></td>
+                    <td id="" class="name-cell">sajjad hasan salman</td>
+                    <td><input type="checkbox" name="" id=""></td>
+                </tr>
+                <tr>
+                    <td><img src="./image/profile_photo.svg" alt="profile photo"></td>
+                    <td id="" class="name-cell">sajjad hasan salman</td>
+                    <td><input type="checkbox" name="" id=""></td>
+                </tr>
+                
+            </table>
+            <div class="form-row">
+                <input type="button" value="save" class="form-control btn svTbl">
+            </div>
+        </div>
+
+
+    </main>
+
+    <!-- FOTTER  -->
+    <footer-component></footer-component>
+</body>
+</html>
