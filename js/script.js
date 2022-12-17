@@ -7,7 +7,7 @@ class Header extends HTMLElement {
         this.innerHTML = `
             <nav>
                 <div class="logo-icon">
-                    <img src="" alt="website logo">
+                    <img src="../icon/main-favicon.svg" alt="website logo">
                 </div>
                 <div class="nav-items">
                     <a class="nav-item" href="./">home</a>

@@ -1,22 +1,16 @@
 /*   HOME PAGE     */
 header{
-    /* padding: 0 10%; */
-    /* position: relative; */
-    /* display: flex;
+    height: calc(100vh - 196px);
+    padding: 0 10%;
+    display: flex;
     align-items: center;
-    justify-content: center; */
+    justify-content: center;
 }
 header>div{
     width: 80%;
-    margin: 10% auto 0;
-    /* background-color: yellow; */
-    /* position: absolute;
-    top: 100%;
-    left: 50%;
-    translate: -50% -50%; */
     display: flex;
     align-items: center;
-    justify-content: space-evenly;
+    justify-content: space-between;
 }
 .title>h1{
     text-transform: uppercase;

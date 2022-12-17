@@ -109,7 +109,7 @@ td:first-child, td:last-child{
     display: flex;
     justify-content: center;
     flex-wrap: nowrap;
-    overflow-x: scroll;
+    overflow-x: auto;
     overflow-y: hidden;
     border-top: 1px var(--ThrdTextColor) solid;
 }

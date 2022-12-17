@@ -35,18 +35,20 @@ body{
 /* NAVIGATION BAR  */
 nav{
     background-color: var(--WhiteColor);
-    position: fixed;
+    position: sticky;
     top: 0%;
     display: flex;
     align-items: center;
     height: 50px;
-    width: 100%;
     padding: 0% 5%;
     font-size: 0.8rem;
     z-index: 10;
 }
 .logo-icon{
     margin-right: 50px;
+}
+.logo-icon img{
+    height: 50px;
 }
 .nav-items>a{
     text-transform: uppercase;
@@ -56,10 +58,7 @@ nav{
 .nav-items>a:hover , .active-page{
     background-color: var(--OfWhiteColor);
 }
-main{
-    min-height: calc(100vh - 146px);
-    padding-top: 50px;
-}
+
 
 /* FOOTER  */
 footer{

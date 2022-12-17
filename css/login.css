@@ -1,4 +1,9 @@
 /*   LOGIN PAGE    */
+main{
+    height: 100vh;
+    background-color: var(--PrimaryDropColor);
+}
+
 form{
     background-color: var(--WhiteColor);
     position: absolute;
