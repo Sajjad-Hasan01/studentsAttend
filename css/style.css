@@ -31,6 +31,9 @@ body{
     font-family: 'Open Sans', sans-serif;
     position: relative;
 }
+main{
+    min-height: calc(100vh - 196px);
+}
 
 /* NAVIGATION BAR  */
 nav{
@@ -45,10 +48,24 @@ nav{
     z-index: 10;
 }
 .logo-icon{
-    margin-right: 50px;
+    margin-right: 30px;
 }
 .logo-icon img{
     height: 50px;
+}
+.profile-icon{
+    margin-right: 30px;
+    height: 30px;
+    width: 30px;
+    border-radius: 50%;
+    overflow: hidden;
+}
+.profile-icon img{
+    height: auto;
+    width: 100%;
+}
+.profile-icon:hover{
+    filter: brightness(.9);
 }
 .nav-items>a{
     text-transform: uppercase;
@@ -74,7 +91,37 @@ footer{
     color: var(--SecTextColor)
 }
 
-/* FORM INPUTS STYLE */
+/* HEADER TITLE  */
+.p-title{
+    text-align: center;
+    text-transform: uppercase;
+    color: var(--PrimaryColor);
+    margin: 40px 0 0px;
+}
+.p-suptitle{
+    text-align: center;
+    font-weight: 600;
+    font-size: 1.8rem;
+    color: var(--SecTextColor);
+    text-transform: capitalize;
+    font-style: italic;
+}
+
+/* FORM & INPUTS STYLE */
+.add-std-sec{
+    background-color: var(--WhiteColor);
+    padding: 5%;
+    border-radius: 15px;
+    margin: 40px auto;
+    width: 40%;
+    border-radius: 15px;
+}
+.add-std-form{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
 .form-control{
     height: 40px;
     outline: none;
@@ -99,11 +146,65 @@ footer{
     text-transform: capitalize;
 }
 .form-row{
-    width: 100%;
+    width: 248px;
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-top: 40px;
+}
+.file-input{
+    width: 248px;
+    height: 40px;
+    margin: 15px 0px;
+    padding: 0% 20px;
+    border-radius: 3px;
+    color: transparent;
+    background-color: var(--OfWhiteColor);
+    position: relative;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: inherit;
+    text-transform: capitalize;
+    z-index: 0;
+}
+.file-input::-webkit-file-upload-button {
+    display: none;
+}
+.file-input::before {
+    content: 'upload photo \2191';
+    display: inline-block;
+    white-space: nowrap;
+    color: var(--SecTextColor);
+    position: absolute;
+    top: 50%;
+    translate: 0 -50%;
+    font-family: inherit;
+    font-size: inherit;
+    text-transform: capitalize;
+}
+.file-input::after {
+    content: '';
+    display: inline-block;
+    white-space: nowrap;
+    position: absolute;
+    top: 50%;
+    left: 60%;
+    translate: 0% -60%;
+    font-family: inherit;
+    font-size: inherit;
+    text-transform: capitalize;
+    color: var(--SecTextColor);
+}
+.file-input:hover, .file-input:focus {
+    box-shadow: var(--PrimaryDropColor) 0px 0px 5px;
+}
+.chboxlbl{
+    color: var(--SecTextColor);
+    text-transform: capitalize;
+}
+.checkbox{
+    scale: 1.5;
+    margin-right: 15px;
 }
 .btn{
     color: var(--WhiteColor);
@@ -113,6 +214,11 @@ footer{
 }
 .secBtn{
     background-color: var(--SecondaryColor);
+}
+#errMsg{
+    color: var(--PrimaryColor);
+    text-transform: capitalize;
+    margin-top: 30px;
 }
 .hide-control{
     display: none !important;

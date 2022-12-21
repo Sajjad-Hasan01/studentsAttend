@@ -20,14 +20,15 @@
 
     <!-- MAIN PAGE CONTENT -->
     <main>
+        <!-- <form action=""> -->
         <!--     ADD LECTURE INPUT      -->
         <div class="add-lecture">
             <input type="text" class="form-control input add-lecture-field" name="" id="" placeholder="start new lecture">
-            <input type="submit" class="form-control btn" value="+">
+            <button type="submit" id="startLecBtn" class="form-control btn">start</button>
         </div>
 
         <!--     FILTER BAR      -->
-        <div class="filter-bar">
+        <div class="filter-bar hide-control">
             <div class="sortCon">
                 <label for="AtoZ" class="filter-btn active-btn">a-z &#x2193;<input type="radio" name="sort" id="AtoZ" class="hide-control" checked></label>
                 <label for="ZtoA" class="filter-btn ">z-a &#x2191;<input type="radio" name="sort" id="ZtoA" class="hide-control"></label>
@@ -47,7 +48,7 @@
         </div>
 
         <!--     TABLE SECTION      -->
-        <div class="table-container">
+        <div class="table-container hide-control">
             <table class="table">
                 <tr>
                     <th>photo</th>
@@ -71,12 +72,9 @@
                 </tr>
                 
             </table>
-            <div class="form-row">
-                <input type="button" value="save" class="form-control btn svTbl">
-            </div>
+            <button type="button" id="saveTableBtn" class="form-control btn svTbl">finish</button>
         </div>
-
-
+        <!-- </form> -->
     </main>
 
     <!-- FOTTER  -->

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile</title>
+    <link rel="shortcut icon" href="./icon/log-favicon.svg" type="image/x-icon">
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/profile.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <script defer src="./js/script.js"></script> 
+
+</head>
+<body>
+    <!-- NAVIGATION BAR -->
+    <header-component></header-component>
+
+    <!-- MAIN PAGE CONTENT -->
+    <main>
+        <!-- <form action=""> -->
+        <!-- <h1 class="p-title">students' attendance</h1>
+        <p class="p-suptitle">signup, view and check your attend</p> -->
+
+        <section class="profile-sec">
+            <img class="profile-img" src="./image/profile_photo.svg" alt="profile photo">
+            <div class="profile-title">
+                <h2 class="profile-name">sajjad hasan salman</h2>
+                <a class="profile-email" target="_blank" href="mailto:sajjadhasan@student.uobabylon.edu.iq">sajjadhasan@student.uobabylon.edu.iq</a>
+                <div class="std-info">
+                    <p class="std-group">group <label id="gLbl">c</label> status <label class="dspStatus Separation"></label></p>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button id="editProfileBtn" class="form-control btn secBtn">edit profile</button>
+                <button id="logOutBtn" class="form-control btn Separation">log out</button>
+            </div>
+        </section>
+
+        <!-- MODAL -> to Edit Profile -->
+        <section class="add-std-sec edit-sec hide-control">
+            <div class="add-std-form">
+                <input type="text" class="form-control input" name="" id="" placeholder="full name" required value="sajjad hasan salman">
+                <select class="form-control input" name="" id="" required>
+                    <option value="0">group</option>
+                    <option value="a">a</option>
+                    <option value="b">b</option>
+                    <option value="c" selected>c</option>
+                    <option value="d">d</option>
+                    <option value="e">e</option>
+                </select>
+                    <input type="file" class="file-input" name="" id="upPhoto" accept="image/png, image/jpg, image/gif, image/jpeg">
+                    <label for="" id="imageName" class=""></label>
+                    <button type="submit" id="saveProfileBtn" class="form-control btn svBtn" value="save">save</button>
+                    <label for="" id="errMsg" class="hide-control">try again !</label>
+            </div>
+        </section>
+        <!-- </form> -->
+    </main>
+
+    <!-- FOTTER  -->
+    <footer-component></footer-component>
+
+</body>
+</html>

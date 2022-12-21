@@ -1,10 +1,11 @@
 /*   ATTENDANCE PAGE   */
 .add-lecture{
-    width: 28%;
-    margin: 15px auto;
+    width: 100%;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
+    gap: 40px;
+    margin: 15px auto;
 }
 .add-lecture-field{
     border: 1px var(--ThrdTextColor) solid;
@@ -28,6 +29,8 @@ td>input{
     scale: 1.5;
 }
 .svTbl{
-    margin: 0 auto;
+    margin: 40px auto;
+    display: flex;
+    justify-self: center;
+    align-items: center;
 }
-

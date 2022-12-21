@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signup</title>
+    <link rel="shortcut icon" href="./icon/log-favicon.svg" type="image/x-icon">
+    <link rel="stylesheet" href="./css/style.css">
+    <!-- <link rel="stylesheet" href="./css/login.css"> -->
+    <!-- <link rel="stylesheet" href="./css/signup.css"> -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <script defer src="./js/script.js"></script> 
+
+</head>
+<body>
+    <!-- NAVIGATION BAR -->
+    <header-component></header-component>
+
+    <!-- MAIN PAGE CONTENT -->
+    <main>
+        <h1 class="p-title">students' attendance</h1>
+        <p class="p-suptitle">signup, view and check your attend</p>
+
+        <!-- Sign Form  -->
+        <section class="add-std-sec">
+            <form action="" class="add-std-form">
+                <input type="text" class="form-control input" name="" id="" placeholder="full name" required>
+                <input type="email" class="form-control input" name="" id="" autocomplete="none" placeholder="email" required>
+                <select class="form-control input" name="" id="" required>
+                    <option value="0">group</option>
+                    <option value="a">a</option>
+                    <option value="b">b</option>
+                    <option value="c">c</option>
+                    <option value="d">d</option>
+                    <option value="e">e</option>
+                    <input type="file" class="file-input" name="" id="upPhoto" accept="image/png, image/jpg, image/gif, image/jpeg">
+                    <label for="" id="imageName" class=""></label>
+                    <div class="form-row">
+                        <label class="chboxlbl"><input type="checkbox" class="formcontrol checkbox" id="svLogCheck">keep login</label>
+                        <button type="submit" class="form-control btn" value="login">sign up</button>
+                    </div>
+                    <label for="" id="errMsg" class="hide-control">try again !</label>
+                </select>
+            </form>
+        </section>
+    </main>
+
+    <!-- FOTTER  -->
+    <footer-component></footer-component>
+
+</body>
+</html>
