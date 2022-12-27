@@ -1,0 +1,76 @@
+/* PROFILE PAGE  */
+.profile-sec{
+    width: 70%;
+    background-color: var(--WhiteColor);
+    border-radius: 15px;
+    margin: 40px auto;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: space-between;
+    gap: 40px;
+}
+.profile-img-con{
+    border-radius: 50%;
+    height: 100px;
+    width: 100px;
+    overflow:hidden
+}
+.profile-img{
+    height: auto;
+    width: 100%;
+    min-height:100%;
+    min-width:100%;
+}
+.profile-title{
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: space-between;
+    gap: 10px;
+}
+.profile-name{
+    text-transform: capitalize;
+    color: var(--PrimaryColor);
+}
+.profile-email{
+    color: #777;
+    font-size: 1rem;
+}
+.std-group{
+    text-transform: capitalize;
+    font-weight: 500;
+    color: #777;
+    font-size: 1rem;
+    display: none;
+    align-items: center;
+    gap: 5px;
+}
+#gLbl{
+    color: var(--SecTextColor);
+}
+.dspStatus{
+    height: 20px;
+    width: 20px;
+    border-radius: 50%;
+    display: inline-block;
+}
+.modal-footer{
+    min-width: 248px;
+    display: flex;
+    justify-content: space-between;
+    margin-top: 25px;
+}
+.svBtn{
+    margin: 40px auto 0;
+    display: flex;
+    justify-self: center;
+    align-items: center;
+}
+.sec-title {
+    text-transform: capitalize;
+    color: var(--PrimaryColor);
+    text-align:center;
+    margin-bottom:15px;
+}
