@@ -22,9 +22,9 @@ td:first-child, td:last-child{
 .email-cell{
     font-size: 1.2rem;
 }
-.dspStatus{
-    height: 30px;
-    width: 30px;
+.dspStatus {
+    height: 30px !important;
+    width: 30px !important;
     border-radius: 50%;
     margin: auto;
 }

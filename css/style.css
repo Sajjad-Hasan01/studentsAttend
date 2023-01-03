@@ -290,8 +290,21 @@ th{
 td{
     padding: 10px 0;
 }
-td>img{
+td>div{
     border-radius: 50%;
     height: 40px;
     width: 40px;
+    overflow:hidden;
+    margin:auto;
+}
+td>div>img{
+    height: auto;
+    min-height: 100%;
+    width: 100%;
+    min-width: 100%;
+}
+.sec-title {
+    text-transform: capitalize;
+    color: var(--PrimaryColor);
+    text-align: center;
 }

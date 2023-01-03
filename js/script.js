@@ -80,31 +80,51 @@ if (document.title==="Students' Attendance") {
 
 // Add active class to the current button in FILTER BAR (highlight it)
 if (document.title==="Students" || document.title==="Attendance") {
-    let sortItems = document.querySelectorAll(".sortCon>label");
-    let groupChecks = document.getElementsByName("group");
-    let statusChecks = document.getElementsByName("dspstatus");
+    let sortItems = document.querySelectorAll(".sortCon>label"),
+        groupChecks = document.querySelectorAll(".groupCon>label"),
+        statusChecks = document.querySelectorAll(".statusCon>label");
 
-    sortItems.forEach(item => {
-        item.addEventListener('click', function () {
-            sortItems.forEach(btn => btn.classList.remove('active-btn'));
-            this.classList.add('active-btn');        
+    //sortItems.forEach(item => {
+    //    item.addEventListener('click', function () {
+    //    //    sortItems.forEach(btn => btn.classList.remove('active-btn'));
+    //    //    this.classList.add('active-btn');
+    //        if (item.querySelector("input").checkValidity())
+    //            this.classList.add('active-btn')
+    //        else this.classList.remove('active-btn')
+    //    });
+
+    //});
+
+    document.onload = () => {
+        sortItems.forEach(item => {
+            if (item.querySelector("input").checkValidity())
+                this.classList.add('active-btn')
+            else this.classList.remove('active-btn')
         });
-    });
 
-    for (let i = 0; i < groupChecks.length; i++) {
-        //groupChecks[i].parentElement.addEventListener('click', () => {  
-            if (groupChecks[i].checked) groupChecks[i].parentElement.classList.add('active-btn');
-            else groupChecks[i].parentElement.classList.remove('active-btn');
-        //})
+        groupChecks.forEach(btn => {
+                gBtn = btn.querySelector("input")
+            if (gBtn.checkValidity()) btn.classList.add('active-btn')
+                else btn.classList.remove('active-btn')
+        })
     }
 
-    for (let i = 0; i < statusChecks.length; i++) {
-        //statusChecks[i].parentElement.addEventListener('click', () => {  
-            let classN = statusChecks[i].parentElement.innerText;
-            if (statusChecks[i].checked) statusChecks[i].parentElement.classList.add(classN);
-            else statusChecks[i].parentElement.classList.remove(classN);
-        //})
-    }
+    //groupChecks.forEach(btn => {
+    //    btn.addEventListener('click', function () {
+    //        gBtn = btn.querySelector("input")
+    //        if (gBtn.checked) btn.classList.add('active-btn')
+    //        else btn.classList.remove('active-btn')
+    //    })
+    //})
+
+    //statusChecks.forEach(btn => {
+    //    btn.addEventListener('click', function () {
+    //        let classN = btn.innerText;
+    //        gBtn = btn.querySelector("input")
+    //        if (gBtn.checked) btn.classList.add(classN)
+    //        else btn.classList.remove(classN)
+    //    })
+    //})
 }
 
 //  STUDENT'S PUP UP    
@@ -121,16 +141,16 @@ if (document.title==="Students") {
 }
 
 // Display Student Table & Filter Bar OR Hide 
-if (document.title==="Attendance") {
-    let StartLecBtn = document.getElementById("startLecBtn"),
-        SaveTableBtn = document.getElementById("saveTableBtn"),
-        FilterBar = document.querySelector(".filter-bar"),
-        StdTable = document.querySelector(".table-container"),
-        AddLec = document.querySelector(".add-lecture");
+//if (document.title==="Attendance") {
+//    let StartLecBtn = document.getElementById("startLecBtn"),
+//        SaveTableBtn = document.getElementById("saveTableBtn"),
+//        FilterBar = document.querySelector(".filter-bar"),
+//        StdTable = document.querySelector(".table-container"),
+//        AddLec = document.querySelector(".add-lecture");
     
-    StartLecBtn.onclick=()=>{StdTable.classList.remove("hide-control");FilterBar.classList.remove("hide-control");AddLec.classList.add("hide-control")}
-    SaveTableBtn.onclick=()=>{StdTable.classList.add("hide-control");FilterBar.classList.add("hide-control");AddLec.classList.remove("hide-control")}
-}
+//    StartLecBtn.onclick=()=>{StdTable.classList.remove("hide-control");FilterBar.classList.remove("hide-control");AddLec.classList.add("hide-control")}
+//    SaveTableBtn.onclick=()=>{StdTable.classList.add("hide-control");FilterBar.classList.add("hide-control");AddLec.classList.remove("hide-control")}
+//}
 
 // UPLOAD PHOTO NAME
 if (document.title==="Signup"  || document.title==="Profile") {
@@ -143,11 +163,11 @@ if (document.title==="Signup"  || document.title==="Profile") {
 }
 
 // EDIT PROFILE & SAVE & LOG OUT
-if (document.title==="Profile") {
-    let EditBtn = document.getElementById("editProfileBtn"),
-        SaveEditBtn = document.getElementById("saveProfileBtn"),
-        editProfileSec = document.querySelector(".edit-sec");
+//if (document.title==="Profile") {
+//    let EditBtn = document.getElementById("editProfileBtn"),
+//        SaveEditBtn = document.getElementById("saveProfileBtn"),
+//        editProfileSec = document.querySelector(".edit-sec");
     
-    EditBtn.onclick=()=>{editProfileSec.classList.remove("hide-control")}
-    SaveEditBtn.onclick=()=>{editProfileSec.classList.add("hide-control")}
-}
+//    EditBtn.onclick=()=>{editProfileSec.classList.remove("hide-control")}
+//    SaveEditBtn.onclick=()=>{editProfileSec.classList.add("hide-control")}
+//}

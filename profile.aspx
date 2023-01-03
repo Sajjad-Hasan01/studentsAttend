@@ -22,7 +22,7 @@
 
     <!-- MAIN PAGE CONTENT -->
     <main>
-        <form id="profileForm" runat="server">
+        <form id="profileForm" action="./profile.aspx" runat="server">
         <section class="profile-sec">
             <div class="profile-img-con">
                 <asp:Image ID="profileImg" CssClass="profile-img" runat="server" alt="profile photo"/>

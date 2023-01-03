@@ -26,40 +26,27 @@
         <!--     FILTER BAR      -->
         <section class="filter-bar">
             <div class="sortCon">
-                <label for="AtoZ" class="filter-btn active-btn">a-z &#x2193;<asp:RadioButton ID="AtoZ" runat="server" name="sort" CssClass="hide-control" Enabled="True" /></label>
-                <label for="ZtoA" class="filter-btn ">z-a &#x2191;<asp:RadioButton runat="server" name="sort" ID="ZtoA" CssClass="hide-control"/></label>
+                <label for="AtoZ" id="lblAtoZ" runat="server" class="filter-btn active-btn">a-z &#x2193;<asp:RadioButton ID="AtoZ" runat="server" CssClass="hide-control"  OnCheckedChanged="displayStudentsChange" AutoPostBack="true" GroupName="sort" /></label>
+                <label for="ZtoA" id="lblZtoA" runat="server" class="filter-btn active-btn">z-a &#x2191;<asp:RadioButton runat="server" ID="ZtoA" CssClass="hide-control" OnCheckedChanged="displayStudentsChange" AutoPostBack="true" GroupName="sort" /></label>
             </div>
             <div class="groupCon">
-                <label for="gA" class="filter-btn ">a<asp:CheckBox runat="server" name="group" ID="gA" CssClass="hide-control"/></label>
-                <label for="gB" class="filter-btn ">b<asp:CheckBox runat="server" name="group" ID="gB" CssClass="hide-control"/></label>
-                <label for="gC" class="filter-btn ">c<asp:CheckBox runat="server" name="group" ID="gC" CssClass="hide-control"/></label>
-                <label for="gD" class="filter-btn ">d<asp:CheckBox runat="server" name="group" ID="gD" CssClass="hide-control"/></label>
-                <label for="gE" class="filter-btn ">e<asp:CheckBox runat="server" name="group" ID="gE" CssClass="hide-control"/></label>
+                <label for="gA" id="lblgA" runat="server" class="filter-btn active-btn">a<asp:CheckBox runat="server" name="group" ID="gA" CssClass="hide-control" OnCheckedChanged="displayStudentsChange" AutoPostBack="true"/></label>
+                <label for="gB" id="lblgB" runat="server" class="filter-btn active-btn">b<asp:CheckBox runat="server" name="group" ID="gB" CssClass="hide-control" OnCheckedChanged="displayStudentsChange" AutoPostBack="true"/></label>
+                <label for="gC" id="lblgC" runat="server" class="filter-btn active-btn">c<asp:CheckBox runat="server" name="group" ID="gC" CssClass="hide-control" OnCheckedChanged="displayStudentsChange" AutoPostBack="true"/></label>
+                <label for="gD" id="lblgD" runat="server" class="filter-btn active-btn">d<asp:CheckBox runat="server" name="group" ID="gD" CssClass="hide-control" OnCheckedChanged="displayStudentsChange" AutoPostBack="true"/></label>
+                <label for="gE" id="lblgE" runat="server" class="filter-btn active-btn">e<asp:CheckBox runat="server" name="group" ID="gE" CssClass="hide-control" OnCheckedChanged="displayStudentsChange" AutoPostBack="true"/></label>
             </div>
             <div class="statusCon">
-                <label for="continuous" class="filter-btn ">continuous<asp:CheckBox runat="server" name="dspstatus" ID="continuous" CssClass="hide-control"/></label>
-                <label for="warning" class="filter-btn ">warning<asp:CheckBox runat="server" name="dspstatus" ID="warning" CssClass="hide-control"/></label>
-                <label for="separation" class="filter-btn ">separation<asp:CheckBox runat="server" name="dspstatus" ID="separation" CssClass="hide-control"/></label>
+                <label for="continuous" id="lblContinuous" runat="server" class="filter-btn Continuous">continuous<asp:CheckBox runat="server" name="dspstatus" ID="continuous" CssClass="hide-control" checked="true" OnCheckedChanged="displayStudentsChange" AutoPostBack="True" /></label>
+                <label for="warning" id="lblWarning" runat="server" class="filter-btn Warning">warning<asp:CheckBox runat="server" name="dspstatus" ID="warning" CssClass="hide-control" checked="true" OnCheckedChanged="displayStudentsChange" AutoPostBack="True" /></label>
+                <label for="separation" id="lblSeparation" runat="server" class="filter-btn Separation">separation<asp:CheckBox runat="server" name="dspstatus" ID="separation" CssClass="hide-control" checked="true"  OnCheckedChanged="displayStudentsChange" AutoPostBack="True"/></label>
             </div>
         </section>
+        
 
         <!--     TABLE SECTION   -->
-        <section class="table-container dspAllStdCon">    
-            <table class="table dspAllStd">
-                <tr>
-                    <th>photo</th>
-                    <th class="name-header">full name</th>
-                    <th class="email-header">email</th>
-                    <th>status</th>
-                </tr>
-                <tr>
-                    <td><asp:Image ID="Image1" runat="server" src="./image/profile_photo.svg" alt="profile photo"/></td>
-                    <td id="stdName" runat="server" class="name-cell">sajjad hasan salman</td>
-                    <td id="stdEmail" runat="server" class="email-cell">sajjadhasan@student.uobabylon.edu.iq</td>
-                    <td><div id="dspStatus" runat="server" class="dspStatus Separation"></div></td>
-                </tr>
-                
-            </table>
+        <section class="table-container dspAllStdCon" id="stdTable" runat="server">
+
         </section>
 
         <!-- STUDENT MODAL  -->
@@ -87,9 +74,9 @@
                     </div>
 
                 </div>
-                <div class="modal-footer">
+<%--                <div class="modal-footer">
                     <asp:Button ID="deleteBtn" class="form-control btn Separation" runat="server" Text="delete" />
-                </div>
+                </div>--%>
             </div>
         </section>
         </form>

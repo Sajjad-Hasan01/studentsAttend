@@ -7,6 +7,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Configuration;
 using System.Data;
+using System.Web.Profile;
 
 public partial class Signup : System.Web.UI.Page
 {
@@ -20,7 +21,8 @@ public partial class Signup : System.Web.UI.Page
         if (logCookie != null)
         {
             Session["email"] = logCookie["email"];
-            Response.Redirect("default.aspx");
+            Session["privilege"] = logCookie["privilege"];
+            Response.Redirect("./");
         }
     }
 
@@ -35,7 +37,7 @@ public partial class Signup : System.Web.UI.Page
         {
             if (method.IsValidEmail(email.Text))
             {
-                string privilege = method.GetPrivilege(email.Text);
+                string privilege = method.GetPrivilege(email.Text.ToLower());
 
                 if (photoUp.HasFile)
                 {
@@ -46,7 +48,7 @@ public partial class Signup : System.Web.UI.Page
                     if (extension == ".jpg" || extension == ".png" || extension == ".jpeg")
                     {
                         photoUp.SaveAs(photoPath + photoName);
-                        cmd.CommandText = "INSERT INTO Accounts (FullName, Email, Photo, Privilege, Password) VALUES ('" + name.Text + "', '" + email.Text + "', '" + photoUp.FileName + "', '" + privilege + "', '" + method.GenerateHash(password.Text) + "')";
+                        cmd.CommandText = "INSERT INTO Accounts (FullName, Email, Photo, Privilege, Password) VALUES ('" + name.Text.ToLower() + "', '" + email.Text.ToLower() + "', '" + photoUp.FileName + "', '" + privilege + "', '" + method.GenerateHash(password.Text) + "')";
 
                         int row = cmd.ExecuteNonQuery();
                         if (row > 0)
@@ -54,13 +56,13 @@ public partial class Signup : System.Web.UI.Page
                             if (svLogCheck.Checked)
                             {
                                 HttpCookie logCookie = new HttpCookie("user_login");
-                                logCookie["email"] = email.Text;
+                                logCookie["email"] = email.Text.ToLower();
                                 logCookie.Expires = DateTime.Now.AddMonths(1);
                                 Response.Cookies.Add(logCookie);
                             }
 
-                            Session["email"] = email.Text;
-                            Response.Redirect("default.aspx");
+                            Session["email"] = email.Text.ToLower();
+                            Response.Redirect("./profile.aspx");
                         }
                         else
                         {
@@ -71,26 +73,26 @@ public partial class Signup : System.Web.UI.Page
                 }
                 else
                 {
-                    cmd.CommandText = "INSERT INTO Accounts (FullName, Email, Privilege, Password) VALUES ('" + name.Text + "', '" + email.Text + "', '" + privilege + "', '" + method.GenerateHash(password.Text) + "')";
+                    cmd.CommandText = "INSERT INTO Accounts (FullName, Email, Privilege, Password) VALUES ('" + name.Text.ToLower() + "', '" + email.Text.ToLower() + "', '" + privilege + "', '" + method.GenerateHash(password.Text) + "')";
                     int row = cmd.ExecuteNonQuery();
                     if (row > 0)
                     {
                         if (svLogCheck.Checked)
                         {
                             HttpCookie logCookie = new HttpCookie("user_login");
-                            logCookie["email"] = email.Text;
+                            logCookie["email"] = email.Text.ToLower();
                             logCookie.Expires = DateTime.Now.AddMonths(1);
                             Response.Cookies.Add(logCookie);
                         }
-                        Session["email"] = email.Text;
-                        Response.Redirect("default.aspx");
+                        Session["email"] = email.Text.ToLower();
+                        Response.Redirect("./profile.aspx");
                     }
                     else errMsg.Text = "sorry! try Again";
                 }
             }
-            else errMsg.Text = "the email must be from babylon university"; 
+            else errMsg.Text = "the email must be from babylon university";
         }
-        else errMsg.Text = "all fields are required, try again"; 
+        else errMsg.Text = "all fields are required, try again";
         con.Close();
     }
 }

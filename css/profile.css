@@ -69,8 +69,5 @@
     align-items: center;
 }
 .sec-title {
-    text-transform: capitalize;
-    color: var(--PrimaryColor);
-    text-align:center;
     margin-bottom:15px;
 }

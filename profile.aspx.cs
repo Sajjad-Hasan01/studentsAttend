@@ -21,17 +21,16 @@ public partial class profile : System.Web.UI.Page
     {
         editProfile.Style.Add("display", "none");
 
-        con.ConnectionString = ConfigurationManager.ConnectionStrings["testDB"].ToString();
-        cmd.Connection = con;
-        cmd.CommandType = CommandType.Text;
-        con.Open();
-
         if (Session["email"] == null)
         {
-            Response.Redirect("login.aspx");
+            Response.Redirect("./login.aspx");
         }
         else
         {
+            con.ConnectionString = ConfigurationManager.ConnectionStrings["testDB"].ToString();
+            cmd.Connection = con;
+            cmd.CommandType = CommandType.Text;
+            con.Open();
             cmd.CommandText = "SELECT FullName, Email, Photo, Privilege FROM Accounts WHERE Email ='" + Session["email"] + "'";
             SqlDataReader AcReader = cmd.ExecuteReader();
 
@@ -48,7 +47,7 @@ public partial class profile : System.Web.UI.Page
                 profileImg.ImageUrl = "./profile_image/" + account.Photo;
                 Session["privilege"] = account.Privilege;
                 con.Close();
-                
+
                 if (account.Privilege == "student")
                 {
                     con.Open();
@@ -63,15 +62,19 @@ public partial class profile : System.Web.UI.Page
                         groupAndStatus.Style.Add("display", "flex");
                         stdGroup.InnerText = account.Std_Group;
                         stdStatus.Style.Add("background-color", account.Std_Status);
+                        hvToEditMsg.Style.Add("display", "none");
                     }
                     else
                     {
-                        //hvToEditMsg.Text = "edit your profile to be in a group";
-                        hvToEditMsg.Text = account.Photo;
+                        hvToEditMsg.Text = "edit your profile to be in a group";
                     }
                     con.Close();
                 }
-                else editGroup.Style.Add("display", "none");
+                else
+                {
+                    editGroup.Style.Add("display", "none");
+                    hvToEditMsg.Style.Add("display", "none");
+                }
             }
         }
     }
@@ -87,7 +90,7 @@ public partial class profile : System.Web.UI.Page
     {
         Session.Clear();
         Session.Abandon();
-        Response.Redirect("login.aspx");
+        Response.Redirect("./login.aspx");
     }
 
     protected void saveProfileBtn_Click(object sender, EventArgs e)
@@ -105,7 +108,7 @@ public partial class profile : System.Web.UI.Page
                 cmd.ExecuteNonQuery();
                 con.Close();
             }
-            if (photoUp.HasFile)
+            if (photoUp.HasFile && photoUp.FileName != account.Photo)
             {
                 string photoName = photoUp.FileName,
                     extension = System.IO.Path.GetExtension(photoName),
@@ -127,8 +130,7 @@ public partial class profile : System.Web.UI.Page
                 {
                     con.Open();
                     cmd.CommandText = "SELECT * FROM Students WHERE Std_Email = '" + account.Email + "'";
-                    SqlDataReader AcReader = cmd.ExecuteReader();
-                    if (AcReader.Read())
+                    if (cmd.ExecuteScalar() != null || cmd.ExecuteScalar().ToString() != "")
                     {
                         con.Close();
                         con.Open();
@@ -140,48 +142,20 @@ public partial class profile : System.Web.UI.Page
                     {
                         con.Close();
                         con.Open();
-                        cmd.CommandText = "INSERT INTO Students (Std_Email, Std_Group, Std_Status) VALUES ('" + account.Email + "', '" + editGroup.SelectedValue + "', 'green')";
+                        cmd.CommandText = "INSERT INTO Students (Std_Email, Std_Group, Std_Status) VALUES ('" + account.Email + "', '" + editGroup.SelectedValue + "', 'Continuous')";
                         cmd.ExecuteNonQuery();
                         con.Close();
                     }
                 }
                 else if (editGroup.SelectedValue == "0") errMsg.Text = "you have to choice a groub";
             }
-
-            //  * WHAT HAPPEN AFTER SAVE EVENT ???
-
-            //int tmp = Convert.ToInt32(cmd.ExecuteScalar());
-
-            //if (tmp > 0) Response.Redirect("profile.aspx");
-            //else errMsg.Text = "not updated, try again";
+            else errMsg.Text = "profile updated";
         }
         else errMsg.Text = "fill in and try again";
-
-        
-
-        //try
-        //{
-        //}
-        //catch (Exception ex)
-        //{
-        //}
-        //finally
-        //{
-        //    if (connect.State == ConnectionState.Open)
-        //    {
-        //        connect.Close();
-        //    }
-        //    txtpress.Text = "";
-        //    txtitle.Text = "";
-        //    lblimg2.Text = "";
-        //    lblpresrl.Text = "";
-        //    lblimg3.Text = "";
-        //    lblbrousize.Text = "";
-        //}
     }
 
     protected void cancelProfileBtn_Click(object sender, EventArgs e)
     {
-        Response.Redirect("profile.aspx");
+        Response.Redirect("./profile.aspx");
     }
 }

@@ -11,7 +11,7 @@ public partial class _Default : System.Web.UI.Page
     {
         if (Session["email"] == null)
         {
-            Response.Redirect("login.aspx");
+            Response.Redirect("./login.aspx");
         }
     }
 }

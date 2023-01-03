@@ -32,7 +32,7 @@
                     <label class="chboxlbl"><asp:CheckBox ID="svLogCheck" CssClass="checkbox" runat="server" />keep login</label>
                     <asp:Button ID="submitBtn" CssClass="form-control btn" runat="server" Text="login" Onclick="submitBtn_Click"/>
                 </div>
-                <a href="./signup.aspx" class="errMsg" runat="server">don't have account ? sign up</a>
+                <label class="errMsg">don't have account ? <a href="./signup.aspx" runat="server"><u>sign up</u></a></label>
                 <asp:Label ID="errMsg" CssClass="" runat="server"></asp:Label>
             </form>
         </section>
