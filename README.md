@@ -5,9 +5,12 @@ A system for recording student attendance, we can display the Percentage of abse
 hours for each student and display alerts and warnings if they exist, in addition to
 recording the date and time of attendance directly when registering the student's
 attendance
+* ASP.Net : Web Form => <i>Front-End</i>
+* C# => <i>Back-End</i>
+* SQL Server => <i>Database</i>
 <hr>
-<a href="https://behance.net/sajjad_hasan" target="_blanke">design</a>
-I did it with my friends Sajjad Abdul-Munim and Sumaya Muhammed
+<b>I did it with my friends Sajjad Abdul-Munim and Sumaya Muhammed</b>
+<hr>
 
 ![Github Repo Cover ](https://user-images.githubusercontent.com/99995853/212356130-3a9370ad-886d-47a7-aeca-b01b1c581a20.jpg)
 
