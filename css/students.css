@@ -1,28 +1,16 @@
 /*   STUDENTS PAGE     */
 
 /* STUDENTS TABLE */
-tr{
+tr {
     cursor: pointer;
 }
-.name-header, .email-header{
+
+.name-header, .email-header {
     text-align: left;
     width: calc(50% - 100px);
 }
-th:first-child,th:last-child{
-    width: 100px;
-}
-td:first-child, td:last-child{
-    text-align: center;
-}
-.name-cell{
-    text-transform: capitalize;
-    font-weight: 600;
-    font-size: 1.2rem;
-}
-.email-cell{
-    font-size: 1.2rem;
-}
-.dspStatus{
+
+.dspStatus {
     height: 30px;
     width: 30px;
     border-radius: 50%;
@@ -30,7 +18,7 @@ td:first-child, td:last-child{
 }
 
 /*   STUDENT MODAL     */
-.modal-bg{
+.modal-bg {
     height: 100vh;
     width: 100vw;
     position: fixed;
@@ -39,117 +27,167 @@ td:first-child, td:last-child{
     background-color: var(--PrimaryDropColor);
     z-index: 11;
 }
-.modal{
+
+.modal {
     height: 70%;
     width: 70%;
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%,-50%);
+    transform: translate(-50%, -50%);
     background-color: var(--WhiteColor);
     border-radius: 15px;
+    padding: var(--val30);
 }
-.modal-close{
+
+.modal-close {
     background-color: var(--PrimaryColor);
     color: var(--WhiteColor);
     height: 30px;
     width: 30px;
     border-radius: 15px;
-    margin: 15px;
+    margin: 0 0 30px auto;
     display: flex;
     justify-content: center;
     align-items: center;
     font-weight: 700;
     cursor: pointer;
 }
-.modal-close:hover{
+
+.modal-close:hover {
     box-shadow: var(--PrimaryDropColor) 0px 0px 5px;
 }
-.modal-content{
-    height: calc(100% - 140px);
-    padding: 0% 30px 40px;
+
+.modal-content {
+    height: calc(100% - 60px);
 }
-.modal-content >div:first-child{
+
+.modal-content>div:first-of-type {
     display: flex;
+    flex-direction: column;
     align-items: center;
-    justify-content: space-around;
+    justify-content: flex-start;
+    gap: var(--val50);
     height: calc(100% - 50px);
 }
-.modal-content img{
+
+@media (min-width:768px) {
+    .modal-content>div:first-of-type {
+        flex-direction: row;
+    }
+
+    .modal-content>div:first-of-type>div {
+        width: calc(100% - 100px);
+    }
+}
+
+.modal-content img {
     border-radius: 50%;
     height: 100px;
     width: 100px;
 }
-.modal-content >div:first-child>div{
-    width: calc(100% - 200px);
+
+@media (max-width:767px) {
+    .modal-content>div:first-of-type>div {
+        text-align: center;
+    }
 }
-.modal-content>div:first-child>div>div{
-    display: flex;
-    align-items: center;
+
+@media (max-width:767px) {
+    .modal-content .std-group {
+        justify-content: center;
+    }
 }
-.modal-content>div:first-child>div>div>.dspStatus{
-    margin: 0;
-}
-.std-name{
+
+.std-name {
     text-transform: capitalize;
     color: var(--MainTextColor);
 }
-.std-email{
+
+.std-email {
+    display: inline-block;
     color: #777;
+    margin: 10px 0;
 }
-.std-group{
+
+.std-group {
     text-transform: capitalize;
-    font-weight: 600;
-    margin: 0% 30px;
+    font-weight: 500;
     color: #777;
-    font-size: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 5px;
 }
+
+#gLbl {
+    color: var(--SecTextColor);
+    font-weight: 600;
+}
+
+.dspStatus {
+    height: 20px;
+    width: 20px;
+    border-radius: 50%;
+    display: inline-block;
+    margin: 0%;
+}
+
+@media (min-width:950px) {
+    .modal-content>div:first-of-type>div>p {
+        justify-content: flex-start;
+        margin-left: 15px;
+    }
+}
+
 .attend-log {
     width: 100%;
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     flex-wrap: nowrap;
+    gap: 20px;
     overflow-x: auto;
     overflow-y: hidden;
     border-top: 1px var(--ThrdTextColor) solid;
+    overscroll-behavior-inline: contain;
 }
+
 /* Scroll width */
 .attend-log::-webkit-scrollbar {
     height: 15px;
 }
+
 /* Scroll Track */
 ::-webkit-scrollbar-track {
     background: none;
 }
+
 /* Scroll Handle */
 ::-webkit-scrollbar-thumb {
     background: #ccc;
     border-radius: 8px;
 }
+
 .lec-log {
-    display: inline-block;
-    min-width: 50px;
-    height: 50px;
-    margin-right: 20px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    min-width: max-content;
+    /* height: 50px; */
 }
-.lec-title{
+
+.lec-title {
     color: var(--SecTextColor);
     text-transform: uppercase;
     font-weight: 600;
     font-size: 1rem;
     text-align: center;
 }
-.lec-attend{
+
+.lec-attend {
     font-weight: 700;
     font-size: 1rem;
     text-align: center;
     color: #777;
 }
-.modal-footer{
+
+.modal-footer {
     display: flex;
     justify-content: space-evenly;
 }

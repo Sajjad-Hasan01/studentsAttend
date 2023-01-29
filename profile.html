@@ -20,26 +20,23 @@
 
     <!-- MAIN PAGE CONTENT -->
     <main>
-        <!-- <form action=""> -->
-        <!-- <h1 class="p-title">students' attendance</h1>
-        <p class="p-suptitle">signup, view and check your attend</p> -->
-
+        <!-- Profile Info  -->
         <section class="profile-sec">
-            <img class="profile-img" src="./image/profile_photo.svg" alt="profile photo">
+            <div class="profile-img">
+                <img src="./image/IMG_2022.jpg" alt="profile photo">
+            </div>
             <div class="profile-title">
                 <h2 class="profile-name">sajjad hasan salman</h2>
                 <a class="profile-email" target="_blank" href="mailto:sajjadhasan@student.uobabylon.edu.iq">sajjadhasan@student.uobabylon.edu.iq</a>
-                <div class="std-info">
-                    <p class="std-group">group <label id="gLbl">c</label> status <label class="dspStatus Separation"></label></p>
-                </div>
+                <p class="std-group">group <label id="gLbl">c</label> status <label class="dspStatus Continuous"></label></p>
             </div>
             <div class="modal-footer">
                 <button id="editProfileBtn" class="form-control btn secBtn">edit profile</button>
-                <button id="logOutBtn" class="form-control btn Separation">log out</button>
+                <button id="logOutBtn" class="form-control btn Separation"><a href="./login.html">log out</a></button>
             </div>
         </section>
 
-        <!-- MODAL -> to Edit Profile -->
+        <!-- Edit Profile -->
         <section class="add-std-sec edit-sec hide-control">
             <div class="add-std-form">
                 <input type="text" class="form-control input" name="" id="" placeholder="full name" required value="sajjad hasan salman">
@@ -57,7 +54,6 @@
                     <label for="" id="errMsg" class="hide-control">try again !</label>
             </div>
         </section>
-        <!-- </form> -->
     </main>
 
     <!-- FOTTER  -->

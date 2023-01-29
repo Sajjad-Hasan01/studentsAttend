@@ -20,12 +20,8 @@
 
     <!-- MAIN PAGE CONTENT -->
     <main>
-        <!-- <form action=""> -->
         <!--     ADD LECTURE INPUT      -->
-        <div class="add-lecture">
-            <input type="text" class="form-control input add-lecture-field" name="" id="" placeholder="start new lecture">
-            <button type="submit" id="startLecBtn" class="form-control btn">start</button>
-        </div>
+            <button type="submit" id="startLecBtn" class="form-control btn add-lecture">start</button>
 
         <!--     FILTER BAR      -->
         <div class="filter-bar hide-control">
@@ -34,47 +30,25 @@
                 <label for="ZtoA" class="filter-btn ">z-a &#x2191;<input type="radio" name="sort" id="ZtoA" class="hide-control"></label>
             </div>
             <div class="groupCon">
-                <label for="gA" class="filter-btn ">a<input type="checkbox" name="group" id="gA" class="hide-control"></label>
-                <label for="gB" class="filter-btn ">b<input type="checkbox" name="group" id="gB" class="hide-control"></label>
-                <label for="gC" class="filter-btn ">c<input type="checkbox" name="group" id="gC" class="hide-control"></label>
-                <label for="gD" class="filter-btn ">d<input type="checkbox" name="group " id="gD" class="hide-control"></label>
-                <label for="gE" class="filter-btn ">e<input type="checkbox" name="group" id="gE" class="hide-control"></label>
+                <label for="gA" class="filter-btn active-btn">a<input type="checkbox" name="group" id="gA" class="hide-control" checked></label>
+                <label for="gB" class="filter-btn active-btn">b<input type="checkbox" name="group" id="gB" class="hide-control" checked></label>
+                <label for="gC" class="filter-btn active-btn">c<input type="checkbox" name="group" id="gC" class="hide-control" checked></label>
+                <label for="gD" class="filter-btn active-btn">d<input type="checkbox" name="group " id="gD" class="hide-control" checked></label>
+                <label for="gE" class="filter-btn active-btn">e<input type="checkbox" name="group" id="gE" class="hide-control" checked></label>
             </div>
             <div class="statusCon">
-                <label for="continuous" class="filter-btn ">continuous<input type="checkbox" name="dspstatus" id="continuous" class="hide-control"></label>
-                <label for="warning" class="filter-btn ">warning<input type="checkbox" name="dspstatus" id="warning" class="hide-control"></label>
-                <label for="separation" class="filter-btn ">separation<input type="checkbox" name="dspstatus" id="separation" class="hide-control"></label>
+                <label for="continuous" class="filter-btn Continuous">continuous<input type="checkbox" name="dspstatus" id="continuous" class="hide-control" checked></label>
+                <label for="warning" class="filter-btn Warning">warning<input type="checkbox" name="dspstatus" id="warning" class="hide-control" checked></label>
+                <label for="separation" class="filter-btn Separation">separation<input type="checkbox" name="dspstatus" id="separation" class="hide-control" checked></label>
             </div>
         </div>
 
         <!--     TABLE SECTION      -->
         <div class="table-container hide-control">
-            <table class="table">
-                <tr>
-                    <th>photo</th>
-                    <th class="name-header">full name</th>
-                    <th>attend</th>
-                </tr>
-                <tr>
-                    <td><img src="./image/profile_photo.svg" alt="profile photo"></td>
-                    <td id="" class="name-cell">sajjad hasan salman</td>
-                    <td><input type="checkbox" name="" id=""></td>
-                </tr>
-                <tr>
-                    <td><img src="./image/profile_photo.svg" alt="profile photo"></td>
-                    <td id="" class="name-cell">sajjad hasan salman</td>
-                    <td><input type="checkbox" name="" id=""></td>
-                </tr>
-                <tr>
-                    <td><img src="./image/profile_photo.svg" alt="profile photo"></td>
-                    <td id="" class="name-cell">sajjad hasan salman</td>
-                    <td><input type="checkbox" name="" id=""></td>
-                </tr>
-                
+            <table class="table" id="stdTable">
             </table>
-            <button type="button" id="saveTableBtn" class="form-control btn svTbl">finish</button>
         </div>
-        <!-- </form> -->
+        <button type="button" id="saveTableBtn" class="form-control btn svTbl hide-control">finish</button>
     </main>
 
     <!-- FOTTER  -->

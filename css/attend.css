@@ -1,34 +1,18 @@
 /*   ATTENDANCE PAGE   */
 .add-lecture{
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 40px;
+    display: block;
     margin: 15px auto;
 }
-.add-lecture-field{
-    border: 1px var(--ThrdTextColor) solid;
-}
-.name-header{
+.name-header {
     text-align: left;
     width: calc(100% - 200px);
 }
-th:first-child,th:last-child{
-    width: 100px;
-}
-td:first-child, td:last-child{
-    text-align: center;
-}
-.name-cell{
-    text-transform: capitalize;
-    font-weight: 600;
-    font-size: 1.2rem;
-}
-td>input{
+
+td>input {
     scale: 1.5;
 }
-.svTbl{
+
+.svTbl {
     margin: 40px auto;
     display: flex;
     justify-self: center;

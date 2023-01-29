@@ -1,45 +1,50 @@
 /* PROFILE PAGE  */
-.profile-sec{
-    width: 70%;
-    /* min-height: 450px; */
+.profile-sec {
     background-color: var(--WhiteColor);
-    border-radius: 15px;
-    margin: 40px auto;
-    padding: 40px;
+    margin: var(--val50) auto;
+    padding: var(--val50);
     display: flex;
     flex-direction: column;
-    align-items: stretch;
+    align-items: center;
     justify-content: space-between;
     gap: 40px;
+    box-shadow: var(--layout-shadow);
 }
-.profile-img{
+
+@media (min-width:768px) {
+    .profile-sec {
+        width: 70%;
+        border-radius: 15px;
+        align-items: stretch;
+    }
+}
+
+.profile-img {
     border-radius: 50%;
     height: 100px;
     width: 100px;
+    overflow: hidden;
 }
-.profile-title{
-    display: flex;
-    flex-direction: column;
-    align-items: stretch;
-    justify-content: space-between;
-    gap: 10px;
-    /* background-color: yellow; */
+.profile-img>img {
+    height: auto;
+    min-height: 100%;
+    width: 100%;
+    min-width: 100%;
 }
-.profile-name{
+
+.profile-name {
     text-transform: capitalize;
     color: var(--PrimaryColor);
 }
-.profile-email{
+
+.profile-email {
     color: #777;
     font-size: 1rem;
+    margin: 10px 0;
+    display: inline-block;
 }
-.std-info{
-    display: flex;
-    justify-content: start;
-    align-items: center;
-    gap: 30px;
-}
-.std-group{
+
+.std-group {
     text-transform: capitalize;
     font-weight: 500;
     color: #777;
@@ -48,24 +53,38 @@
     align-items: center;
     gap: 5px;
 }
-#gLbl{
+
+#gLbl {
     color: var(--SecTextColor);
 }
-.dspStatus{
+
+.dspStatus {
     height: 20px;
     width: 20px;
     border-radius: 50%;
     display: inline-block;
 }
-.modal-footer{
+
+.modal-footer {
+    width: 100%;
     display: flex;
     justify-content: space-evenly;
-    margin-top: 10px;
+    /* margin-top: 10px; */
 }
-.svBtn{
+
+.svBtn {
     margin: 40px auto 0;
     display: flex;
     justify-self: center;
     align-items: center;
 }
 
+@media (max-width:767px) {
+    .profile-title {
+        text-align: center;
+    }
+
+    .std-group {
+        justify-content: center;
+    }
+}

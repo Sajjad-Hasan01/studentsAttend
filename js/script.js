@@ -10,7 +10,7 @@ class Header extends HTMLElement {
                     <a href="./"><img src="./icon/main-favicon.svg" alt="website logo"></a>
                 </div>
                 <div class="profile-icon">
-                    <a href="./profile.html"><img src="./image/profile_photo.svg" alt="profile photo logo"></a>
+                    <a href="./profile.html"><img src="./image/IMG_2022.jpg" alt="profile photo logo"></a>
                 </div>
                 <div class="nav-items">
                     <a class="nav-item" href="./">home</a>
@@ -76,48 +76,141 @@ if (document.title==="Students' Attendance") {
     setInterval(displayTime, 10);
 }
 
+
+const students = [
+    {
+        name: "student 1",
+        email: "student@student.uobabylon.edu.iq",
+        group: "a",
+        status: "Continuous",
+    },
+    {
+        name: "student 2",
+        email: "student@student.uobabylon.edu.iq",
+        group: "b",
+        status: "Warning",
+    },
+    {
+        name: "student 3",
+        email: "student@student.uobabylon.edu.iq",
+        group: "c",
+        status: "Warning",
+    },
+    {
+        name: "student 4",
+        email: "student@student.uobabylon.edu.iq",
+        group: "d",
+        status: "Continuous",
+    },
+    {
+        name: "student 5",
+        email: "student@student.uobabylon.edu.iq",
+        group: "e",
+        status: "Separation",
+    }
+];
+
 // Add active class to the current button in filter bar (highlight it)
 if (document.title==="Students" || document.title==="Attendance") {
     let sortItems = document.querySelectorAll(".filter-bar>.sortCon>label");
-    let groupChecks = document.querySelectorAll(".filter-bar>.groupCon>label>input");
-    let statusChecks = document.querySelectorAll(".filter-bar>.statusCon>label>input");
+    let groupChecks = document.querySelectorAll(".filter-bar>.groupCon>label");
+    let statusChecks = document.querySelectorAll(".filter-bar>.statusCon>label");
 
     sortItems.forEach(item => {
         item.addEventListener('click', function () {
-            sortItems.forEach(btn => btn.classList.remove('active-btn'));
-            this.classList.add('active-btn');        
+            if (item.querySelector("input").checked){
+                sortItems.forEach((btn) => btn.classList.remove("active-btn"));
+                this.classList.add('active-btn');
+            }
         });
     });
 
-    for (let i = 0; i < groupChecks.length; i++) {
-        groupChecks[i].parentElement.addEventListener('click', () => {  
-            if (groupChecks[i].checked) groupChecks[i].parentElement.classList.add('active-btn')
-            else groupChecks[i].parentElement.classList.remove('active-btn')
-        })
-    }
-
-    for (let i = 0; i < statusChecks.length; i++) {
-        statusChecks[i].parentElement.addEventListener('click', () => {  
-            let classN = statusChecks[i].parentElement.innerText
-            if (statusChecks[i].checked) statusChecks[i].parentElement.classList.add(classN)
-            else statusChecks[i].parentElement.classList.remove(classN)
-        })
-    }
+    groupChecks.forEach((btn) => {
+        btn.addEventListener('click', function () {
+            if (btn.querySelector("input").checked) btn.classList.add("active-btn");
+            else btn.classList.remove("active-btn");
+        });
+    });
+    statusChecks.forEach((btn) => {
+        btn.addEventListener('click', function () {
+            let classN = btn.innerText;
+            if (btn.querySelector("input").checked) btn.classList.add(classN);
+            else btn.classList.remove(classN);
+        });
+    });
 }
 
 //  STUDENT'S PUP UP    
 if (document.title==="Students") {
-    const student = document.getElementsByTagName('tr'),
-        stdModal = document.querySelector(".preview-box"),
+    html = `<tr>
+                <th>photo</th>
+                <th class="name-header">full name</th>
+                <th class="email-header">email</th>
+                <th>status</th>
+            </tr>`;
+    students.forEach((std) => {
+    html += `
+        <tr std='true'>
+            <td><img src="./image/profile_photo.svg" alt="profile photo"></td>
+            <td class="name-cell">${std.name}</td>
+            <td class="email-cell">${std.email}</td>
+            <td><div class="dspStatus ${std.status}"></div></td>
+        </tr>`;
+    });
+    document.getElementById("stdTable").innerHTML += html;
+
+    const std = document.querySelectorAll("tr[std=true]"),
         closeIcon = document.querySelector(".modal-close"),
-        delBtn = document.querySelector(".modal-footer > button:last-child"),
         modalBg = document.querySelector(".modal-bg");
 
-    for (let i = 0; i < student.length; i++) {
-        const std = student[i];
-        std.onclick = () => {modalBg.classList.remove("hide-control")}
-        closeIcon.onclick = () => {modalBg.classList.add("hide-control")}
-        delBtn.onclick = () => {modalBg.classList.add("hide-control")}
+    for (let i = 0; i < std.length; i++) {
+        // std[i].addEventListener('click',()=>{
+        std[i].onclick = () => {
+            if(std[i].querySelector(".email-cell").innerText === students[i].email);{
+                modalInfo = `<div>
+                                <img src="./image/profile_photo.svg" alt="profile photo">
+                                <div>
+                                    <h2 class="std-name">${students[i].name}</h2>
+                                    <a class="std-email" target="_blank" href="mailto:${students[i].email}">${students[i].email}</a>
+                                    <p class="std-group">group <label id="gLbl">${students[i].group}</label> status <label class="dspStatus ${students[i].status}"></label></p>
+                                </div>
+                            </div>
+                            
+                            <div class="attend-log scroll-inline">
+                                <div class="lec-log">
+                                    <div class="lec-title">lec 1</div>
+                                    <div class="lec-attend">&#10004;</div>
+                                </div>
+                                <div class="lec-log">
+                                    <div class="lec-title">lec 2</div>
+                                    <div class="lec-attend">&#10004;</div>
+                                </div>
+                                <div class="lec-log">
+                                    <div class="lec-title">lec 3</div>
+                                    <div class="lec-attend">&#10006;</div>
+                                </div>
+                                <div class="lec-log">
+                                    <div class="lec-title">lec 4</div>
+                                    <div class="lec-attend">&#10006;</div>
+                                </div>
+                                <div class="lec-log">
+                                    <div class="lec-title">lec 5</div>
+                                    <div class="lec-attend">&#10004;</div>
+                                </div>
+                                <div class="lec-log">
+                                    <div class="lec-title">lec 6</div>
+                                    <div class="lec-attend">&#10006;</div>
+                                </div>
+                            </div>`;
+                document.getElementById("modalContent").innerHTML = modalInfo;
+                modalBg.classList.remove("hide-control");
+                document.body.style.overflow = 'hidden';
+            }
+        }
+    }
+    closeIcon.onclick = () => {
+        modalBg.classList.add("hide-control");
+        document.body.style.overflow = "auto";
     }
 }
 
@@ -129,8 +222,22 @@ if (document.title==="Attendance") {
         StdTable = document.querySelector(".table-container"),
         AddLec = document.querySelector(".add-lecture");
     
-    StartLecBtn.onclick=()=>{StdTable.classList.remove("hide-control");FilterBar.classList.remove("hide-control");AddLec.classList.add("hide-control")}
-    SaveTableBtn.onclick=()=>{StdTable.classList.add("hide-control");FilterBar.classList.add("hide-control");AddLec.classList.remove("hide-control")}
+    StartLecBtn.onclick=()=>{StdTable.classList.remove("hide-control");FilterBar.classList.remove("hide-control");SaveTableBtn.classList.remove("hide-control");AddLec.classList.add("hide-control")}
+    SaveTableBtn.onclick=()=>{StdTable.classList.add("hide-control");FilterBar.classList.add("hide-control");SaveTableBtn.classList.add("hide-control");AddLec.classList.remove("hide-control")}
+
+    html = `<tr>
+                <th>photo</th>
+                <th class="name-header">full name</th>
+                <th>attend</th>
+            </tr>`;
+    students.forEach((std) => {
+    html += `<tr std='true'>
+                <td><img src="./image/profile_photo.svg" alt="profile photo"></td>
+                <td class="name-cell">${std.name}</td>
+                <td><input type="checkbox" name="" id=""></td>
+            </tr>`;
+    });
+    document.getElementById("stdTable").innerHTML += html;
 }
 
 // UPLOAD PHOTO NAME
