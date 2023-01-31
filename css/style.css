@@ -92,7 +92,7 @@ nav {
     width: 30px;
     border-radius: 50%;
     overflow: hidden;
-    box-shadow: 0 0 3px #777;
+    outline: 1px var(--OfWhiteColor) solid;
 }
 
 .profile-icon img {
@@ -112,7 +112,7 @@ nav {
     border-radius: 5px;
 }
 
-.nav-items>a:hover, .active-page {
+.nav-items>a:hover, .nav-items>a:active, .active-page {
     background-color: var(--OfWhiteColor);
 }
 
@@ -298,10 +298,14 @@ text-decoration: underline;
 }
 
 .filter-bar>div {
+    width: fit-content;
     margin-bottom: 15px;
+    border-radius: 20px;
+    overflow: hidden;
+    display: flex;
 }
 
-@media(min-width:971px) {
+@media(min-width: 768px) {
     .filter-bar {
         display: flex;
         align-items: center;
@@ -309,10 +313,6 @@ text-decoration: underline;
     }
 
     .filter-bar>div {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 10px;
         margin: 0px;
     }
 }
@@ -320,16 +320,14 @@ text-decoration: underline;
 .filter-btn {
     color: var(--WhiteColor);
     padding: 5px 15px;
-    border-radius: 20px;
     cursor: pointer;
     text-transform: capitalize;
-    background-color: var(--ThrdTextColor);
     display: inline-block;
+    background-color: var(--ThrdTextColor);
 }
 
-.filter-btn:hover {
-    filter: brightness(1.1);
-    box-shadow: var(--ThrdTextColor) 0px 0px 0px 3px;
+.filter-btn:hover, .filter-btn:active, .filter-btn:focus {
+    filter:brightness(1.2);
 }
 
 .active-btn {
@@ -370,14 +368,14 @@ table {
 }
 
 th:first-child, th:last-child {
-    width: 100px;
+    width: 70px;
 }
 
 tr:not(:last-child) {
     border-bottom: 1px var(--ThrdTextColor) solid;
 }
 
-table:has(tr:hover) tr:not(:hover) {
+table:has(tr:hover) tr:not(:hover,:active) {
     filter: opacity(.5);
 }
 
@@ -390,8 +388,8 @@ th {
     text-transform: uppercase;
 }
 
-td {
-    padding: 10px 0;
+td,th {
+    padding: 10px;
 }
 
 td>img {
@@ -399,7 +397,12 @@ td>img {
     height: 40px;
     width: 40px;
 }
-
+@media (max-width:767px) {
+    td>img {
+    height: 30px;
+    width: 30px;
+    }
+}
 td:first-child, td:last-child {
     text-align: center;
 }

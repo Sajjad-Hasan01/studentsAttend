@@ -24,6 +24,7 @@
     height: 100px;
     width: 100px;
     overflow: hidden;
+    box-shadow: 0 0 10px #777;
 }
 .profile-img>img {
     height: auto;

@@ -10,11 +10,18 @@ tr {
     width: calc(50% - 100px);
 }
 
-.dspStatus {
+tr .dspStatus {
     height: 30px;
     width: 30px;
     border-radius: 50%;
     margin: auto;
+}
+@media (max-width:767px) {
+
+    tr .dspStatus {
+    height: 20px;
+    width: 20px;
+    }
 }
 
 /*   STUDENT MODAL     */
@@ -29,7 +36,7 @@ tr {
 }
 
 .modal {
-    height: 70%;
+    height: 60%;
     width: 70%;
     position: absolute;
     top: 50%;
@@ -81,6 +88,18 @@ tr {
     }
 }
 
+@media (max-width:767px) {
+    .modal{
+        height: 50%;
+        width: 80%;
+    }
+}
+@media (min-width:1025px) {
+    .modal{
+        width: 50%;
+    }
+}
+
 .modal-content img {
     border-radius: 50%;
     height: 100px;
@@ -124,7 +143,7 @@ tr {
     font-weight: 600;
 }
 
-.dspStatus {
+.modal-content .dspStatus {
     height: 20px;
     width: 20px;
     border-radius: 50%;
@@ -132,19 +151,12 @@ tr {
     margin: 0%;
 }
 
-@media (min-width:950px) {
-    .modal-content>div:first-of-type>div>p {
-        justify-content: flex-start;
-        margin-left: 15px;
-    }
-}
-
 .attend-log {
     width: 100%;
     display: flex;
     justify-content: flex-start;
     flex-wrap: nowrap;
-    gap: 20px;
+    gap: 15px;
     overflow-x: auto;
     overflow-y: hidden;
     border-top: 1px var(--ThrdTextColor) solid;
@@ -169,7 +181,6 @@ tr {
 
 .lec-log {
     min-width: max-content;
-    /* height: 50px; */
 }
 
 .lec-title {
@@ -187,7 +198,8 @@ tr {
     color: #777;
 }
 
-.modal-footer {
-    display: flex;
-    justify-content: space-evenly;
+@media (max-width:767px) {
+    .attend-log::-webkit-scrollbar {
+        display: none;
+    }
 }
