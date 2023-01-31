@@ -188,10 +188,7 @@ if (document.title==="Students" || document.title==="Attendance") {
 //  STUDENT'S PUP UP    
 if (document.title==="Students") {
     function stdView() {
-        html = `<tr><th>photo</th>
-            <th class="name-header">full name</th>
-            <th class="email-header">email</th>
-            <th>status</th></tr>`;
+        html = '';
         students.forEach((std) => {
             if (
                 std.group == groups[0] ||
@@ -205,7 +202,7 @@ if (document.title==="Students") {
                     std.status == statusType[2]
                 ) {
                     html += `
-                    <tr std='true'>
+                    <tr>
                         <td><img src="./image/profile_photo.svg" alt="profile photo"></td>
                         <td class="name-cell">${std.name}</td>
                         <td class="email-cell">${std.email}</td>
@@ -215,15 +212,22 @@ if (document.title==="Students") {
             }
         });
         document.getElementById("stdTable").innerHTML = html;
+        showModal();
     }
     stdView();
-    const std = document.querySelectorAll("tr[std=true]"),
-        closeIcon = document.querySelector(".modal-close"),
+    
+    const closeIcon = document.querySelector(".modal-close"),
         modalBg = document.querySelector(".modal-bg");
 
-    for (let i = 0; i < std.length; i++) {
-        std[i].onclick = () => {
-            if(std[i].querySelector(".email-cell").innerText === students[i].email);{
+    function showModal() {
+        const std = document.querySelectorAll("tbody>tr");
+        for (let i = 0; i < std.length; i++) {
+            std[i].onclick = () => {
+                if (
+                std[i].querySelector(".email-cell").innerText ===
+                students[i].email
+                );
+                {
                 modalInfo = `<div>
                                 <img src="./image/profile_photo.svg" alt="profile photo">
                                 <div>
@@ -258,13 +262,23 @@ if (document.title==="Students") {
                                     <div class="lec-title">lec 6</div>
                                     <div class="lec-attend">&#10006;</div>
                                 </div>
+                                <div class="lec-log">
+                                    <div class="lec-title">lec 7</div>
+                                    <div class="lec-attend">&#10004;</div>
+                                </div>
+                                <div class="lec-log">
+                                    <div class="lec-title">lec 8</div>
+                                    <div class="lec-attend">&#10006;</div>
+                                </div>
                             </div>`;
                 document.getElementById("modalContent").innerHTML = modalInfo;
                 modalBg.classList.remove("hide-control");
-                document.body.style.overflow = 'hidden';
-            }
+                document.body.style.overflow = "hidden";
+                }
+            };
         }
     }
+    showModal();
     closeIcon.onclick = () => {
         modalBg.classList.add("hide-control");
         document.body.style.overflow = "auto";
