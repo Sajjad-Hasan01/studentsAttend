@@ -80,35 +80,37 @@ if (document.title==="Students' Attendance") {
 const students = [
     {
         name: "student 1",
-        email: "student@student.uobabylon.edu.iq",
+        email: "student1@student.uobabylon.edu.iq",
         group: "a",
         status: "Continuous",
     },
     {
         name: "student 2",
-        email: "student@student.uobabylon.edu.iq",
+        email: "student2@student.uobabylon.edu.iq",
         group: "b",
         status: "Warning",
     },
     {
         name: "student 3",
-        email: "student@student.uobabylon.edu.iq",
+        email: "student3@student.uobabylon.edu.iq",
         group: "c",
         status: "Warning",
     },
     {
         name: "student 4",
-        email: "student@student.uobabylon.edu.iq",
+        email: "student4@student.uobabylon.edu.iq",
         group: "d",
         status: "Continuous",
     },
     {
         name: "student 5",
-        email: "student@student.uobabylon.edu.iq",
+        email: "student5@student.uobabylon.edu.iq",
         group: "e",
         status: "Separation",
     }
 ];
+let groups=[a='', b='', c='', d='', e=''],
+statusType=[c='', w='', s=''];
 
 function nameASC(a, b) {
     if (a.name < b.name) {
@@ -128,9 +130,6 @@ function nameDESC(a, b) {
     }
     return 0;
 }
-students.sort(nameASC)
-let groups=[a='', b='', c='', d='', e=''],
-    statusType=[c='', w='', s=''];
 function availableGroups() {
     let groupsChecked = document.querySelectorAll(".filter-bar>.groupCon>label>input");
 
@@ -138,56 +137,21 @@ function availableGroups() {
         groupsChecked[i].checked ? groups[i] = groupsChecked[i].value : groups[i] = "";
     }
 }
-availableGroups();
-
 function stdStatus() {
     let statusChecked = document.querySelectorAll(".filter-bar>.statusCon>label>input");
-
+    
     for (let i = 0; i < statusChecked.length; i++) {
         statusChecked[i].checked ? statusType[i] = statusChecked[i].value : statusType[i] = "";
     }
 }
-stdStatus();
 
-// Add active class to the current button in filter bar (highlight it)
-if (document.title==="Students" || document.title==="Attendance") {
-    let sortItems = document.querySelectorAll(".filter-bar>.sortCon>label");
-    let groupChecks = document.querySelectorAll(".filter-bar>.groupCon>label");
-    let statusChecks = document.querySelectorAll(".filter-bar>.statusCon>label");
-
-    sortItems.forEach(item => {
-        item.addEventListener('click', function () {
-            if (this.querySelector("input").checked){
-                sortItems.forEach((btn) => btn.classList.remove("active-btn"));
-                this.classList.add('active-btn');
-                this.getAttribute('value')==='nameASC' ? students.sort(nameASC) : students.sort(nameDESC);
-            }
-            stdView();
-        });
-    });
-    
-    groupChecks.forEach((btn) => {
-        btn.addEventListener('click', function () {
-            if (btn.querySelector("input").checked) btn.classList.add("active-btn");
-            else btn.classList.remove("active-btn");
-            availableGroups();
-            stdView();
-        });
-    });
-    statusChecks.forEach((btn) => {
-        btn.addEventListener('click', function () {
-            let classN = btn.innerText;
-            if (btn.querySelector("input").checked) btn.classList.add(classN);
-            else btn.classList.remove(classN);
-            stdStatus()
-            stdView()
-        });
-    });
-}
+students.sort(nameASC)
 
 //  STUDENT'S PUP UP    
 if (document.title==="Students") {
     function stdView() {
+        availableGroups();
+        stdStatus();
         html = '';
         students.forEach((std) => {
             if (
@@ -212,9 +176,7 @@ if (document.title==="Students") {
             }
         });
         document.getElementById("stdTable").innerHTML = html;
-        showModal();
     }
-    stdView();
     
     const closeIcon = document.querySelector(".modal-close"),
         modalBg = document.querySelector(".modal-bg");
@@ -223,17 +185,14 @@ if (document.title==="Students") {
         const std = document.querySelectorAll("tbody>tr");
         for (let i = 0; i < std.length; i++) {
             std[i].onclick = () => {
-                if (
-                std[i].querySelector(".email-cell").innerText ===
-                students[i].email
-                );
-                {
+                let email = std[i].querySelector(".email-cell").innerText,
+                    e = students.findIndex(s=>s.email===email);
                 modalInfo = `<div>
                                 <img src="./image/profile_photo.svg" alt="profile photo">
                                 <div>
-                                    <h2 class="std-name">${students[i].name}</h2>
-                                    <a class="std-email" target="_blank" href="mailto:${students[i].email}" title="${students[i].email}">${students[i].email}</a>
-                                    <p class="std-group">group <label id="gLbl">${students[i].group}</label> status <label class="dspStatus ${students[i].status}" title="${students[i].status}"></label></p>
+                                    <h2 class="std-name">${students[e].name}</h2>
+                                    <a class="std-email" target="_blank" href="mailto:${students[e].email}" title="${students[e].email}">${students[e].email}</a>
+                                    <p class="std-group">group <label id="gLbl">${students[e].group}</label> status <label class="dspStatus ${students[e].status}" title="${students[e].status}"></label></p>
                                 </div>
                             </div>
                             
@@ -274,11 +233,10 @@ if (document.title==="Students") {
                 document.getElementById("modalContent").innerHTML = modalInfo;
                 modalBg.classList.remove("hide-control");
                 document.body.style.overflow = "hidden";
-                }
+                // }
             };
         }
     }
-    showModal();
     closeIcon.onclick = () => {
         modalBg.classList.add("hide-control");
         document.body.style.overflow = "auto";
@@ -297,9 +255,9 @@ if (document.title==="Attendance") {
     SaveTableBtn.onclick=()=>{StdTable.classList.add("hide-control");FilterBar.classList.add("hide-control");SaveTableBtn.classList.add("hide-control");AddLec.classList.remove("hide-control")}
 
     function stdView() {
-        html = `<tr><th>photo</th>
-                <th class="name-header">full name</th>
-                <th>attend</th></tr>`;
+        availableGroups();
+        stdStatus();
+        html = '';
         students.forEach((std) => {
             if (
                 std.group == groups[0] ||
@@ -322,7 +280,49 @@ if (document.title==="Attendance") {
         });
         document.getElementById("stdTable").innerHTML = html;
     }
+    function showModal(){
+        return 0
+    }
+}
+
+// Add active class to the current button in filter bar (highlight it)
+if (document.title==="Students" || document.title==="Attendance") {
+    let sortItems = document.querySelectorAll(".filter-bar>.sortCon>label");
+    let groupChecks = document.querySelectorAll(".filter-bar>.groupCon>label");
+    let statusChecks = document.querySelectorAll(".filter-bar>.statusCon>label");
+
+    sortItems.forEach(item => {
+        item.addEventListener('click', function () {
+            if (this.querySelector("input").checked){
+                sortItems.forEach((btn) => btn.classList.remove("active-btn"));
+                this.classList.add('active-btn');
+                this.getAttribute('value')==='nameASC' ? students.sort(nameASC) : students.sort(nameDESC);
+            }
+            stdView();
+            showModal();
+        });
+    });
+    
+    groupChecks.forEach((btn) => {
+        btn.addEventListener('click', function () {
+            if (btn.querySelector("input").checked) btn.classList.add("active-btn");
+            else btn.classList.remove("active-btn");
+            stdView();
+            showModal();
+        });
+    });
+    statusChecks.forEach((btn) => {
+        btn.addEventListener('click', function () {
+            let classN = btn.innerText;
+            if (btn.querySelector("input").checked) btn.classList.add(classN);
+            else btn.classList.remove(classN);
+            stdView();
+            showModal();
+        });
+    });
+
     stdView();
+    showModal();
 }
 
 // UPLOAD PHOTO NAME
