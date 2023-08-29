@@ -49,8 +49,8 @@ const Signup = () => {
   }
 
   function checkRePassword(value) {
-    if (value === password) {setRePasswordError("password not match"); setRePassword(value); return true}
-    else {setRePasswordError(true); return false}
+    if (value === password) {setRePasswordError(false); setRePassword(value); return true}
+    else {setRePasswordError("password not match"); return false}
   }
 
   function checkGroup(value) {
@@ -93,7 +93,7 @@ const Signup = () => {
     <p className="p-suptitle">signup, view and check your attend</p>
     <section className="add-std-sec">
       <form className="add-std-form" method="POST" encType="multipart/form-data" onSubmit={e=>checkForm(e)}>
-        <TextInput label={'name'} placeholder={'full name'} checkName={checkName} nameValid={nameValid} errorMessage={''}/>
+        <TextInput label={'name'} placeholder={'full name'} checkName={checkName} errorMessage={nameError}/>
         <EmailInput checkEmail={checkEmail} errorMessage={emailError}/>
         <PasswordInput checkPassword={checkPassword} showPassword={showPassword} setShowPassword={setShowPassword} errorMessage={passwordError}/>
         <ConfirmPasswordInput checkRePassword={checkRePassword} showPassword={showPassword} setShowPassword={setShowPassword} errorMessage={rePasswordError}/>

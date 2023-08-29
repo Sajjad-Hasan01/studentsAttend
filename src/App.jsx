@@ -22,11 +22,11 @@ function App() {
       <Routes>
       <Route path='/' element={<SharedLayout />}>
           <Route index element={<Home/>}/>
-          <Route path='/profile' element={<ProtectedRoute><Profile/></ProtectedRoute>}/>
-          <Route path='/signup' element={<Signup/>}/>
-          <Route path='/login' element={<Login/>}/>
-          <Route path='/students' element={<ProtectedRoute><Students/></ProtectedRoute>}/>
-          <Route path='/attendance' element={<ProtectedRoute><Attendance/></ProtectedRoute>}/>
+          <Route path='profile' element={<ProtectedRoute><Profile/></ProtectedRoute>}/>
+          <Route path='signup' element={<Signup/>}/>
+          <Route path='login' element={<Login/>}/>
+          <Route path='students' element={<ProtectedRoute><Students/></ProtectedRoute>}/>
+          <Route path='attendance' element={<ProtectedRoute><Attendance/></ProtectedRoute>}/>
           <Route path='*' element={<Error/>}/>
         </Route> 
       </Routes>
