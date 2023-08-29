@@ -1,0 +1,70 @@
+/* PROFILE PAGE  */
+.profile-sec {
+    width: 90%;
+    max-width: 500px;
+    border-radius: 25px;
+    background-color: var(--WhiteColor);
+    margin: var(--val50) auto;
+    padding: var(--val50);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    gap: 40px;
+    box-shadow: var(--layout-shadow);
+}
+.profile-img {
+    border-radius: 50%;
+    height: 100px;
+    width: 100px;
+    overflow: hidden;
+    outline: 2px var(--OfWhiteColor) solid;
+}
+.profile-img>img {
+    height: auto;
+    min-height: 100%;
+    width: 100%;
+    min-width: 100%;
+}
+.profile-title {
+    text-align: center;
+}
+.profile-name {
+    text-transform: capitalize;
+    color: var(--PrimaryColor);
+}
+.profile-email {
+    color: #777;
+    font-size: 1rem;
+    margin: 10px 0;
+    display: inline-block;
+}
+.std-group {
+    text-transform: capitalize;
+    font-weight: 500;
+    color: #777;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+}
+
+#gLbl {
+    color: var(--SecTextColor);
+}
+
+.dspStatus {
+    height: 20px;
+    width: 20px;
+    border-radius: 50%;
+    display: inline-block;
+}
+.modal-footer {
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+}
+/* .btn{
+    width: 100%;
+} */
