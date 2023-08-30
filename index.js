@@ -9,15 +9,13 @@ const StudentModel = require('./models/Students');
 require("dotenv").config();
 
 const app = express();
-app.use(cors());
+const corsOptions = {
+    origin: 'https://studentsattend.onrender.com',
+}
+app.use(cors(corsOptions));
 app.use(express.json());
 app.use(express.static('public'));
 
-// const connectionParams = {
-//     useNewUrlParser: true,
-//     useCreateIndex: true,
-//     useUnifiedTopology: true
-// }
 mongoose.connect(process.env.DB);
 
 const storage = multer.diskStorage({
@@ -29,11 +27,11 @@ const upload = multer({storage: storage});
 
 app.post('/signup', upload.single('profilePhoto'), async (req, res) => {
     const {name, email, password, group} = req.body, photo = req.file?.filename || null;
-    const user = await StudentModel.findOne({email});
     
+    const user = await StudentModel.findOne({email});
     if (user) return res.json({code: 11000, message:'email already exist'});
+    
     const hashedPassword = bcrypt.hashSync(password,1);
-
     StudentModel.create({name, email, password: hashedPassword, group, photo});
 
     const getUser = await StudentModel.findOne({email});
