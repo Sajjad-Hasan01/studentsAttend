@@ -18,7 +18,7 @@ import './assets/css/signup.css'
 function App() {
 
   return (
-    <BrowserRouter>
+    <BrowserRouter basename='/'>
       <Routes>
       <Route path='/' element={<SharedLayout />}>
           <Route index element={<Home/>}/>
