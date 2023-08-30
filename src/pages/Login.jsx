@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, Navigate } from "react-router-dom";
 import EmailInput from "../components/EmailInput";
 import PasswordInput from "../components/PasswordInput";
 import SubmitButton from "../components/SubmitButton";
@@ -18,7 +18,9 @@ const Login = () => {
   const navigate = useNavigate(),
     [_,setCookies] = useCookies(['access_token']);
 
-    const API = import.meta.env.VITE_SERVER_URL;
+  if (window.localStorage.getItem('userEmail')) return <Navigate to={'/profile'}/>;
+
+  const API = import.meta.env.VITE_SERVER_URL;
 
     function checkEmail(value) {
       const emailPattern = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;

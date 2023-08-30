@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { Link, useNavigate } from "react-router-dom"
+import { Link, useNavigate, Navigate } from "react-router-dom"
 import TextInput from "../components/TextInput"
 import EmailInput from "../components/EmailInput"
 import PasswordInput from "../components/PasswordInput"
@@ -28,6 +28,8 @@ const Signup = () => {
 
   const navigate = useNavigate()
   const [_,setCookies] = useCookies(['access_token'])
+
+  if (window.localStorage.getItem('userEmail')) return <Navigate to={'/profile'}/>;
 
   const API = import.meta.env.VITE_SERVER_URL;
 

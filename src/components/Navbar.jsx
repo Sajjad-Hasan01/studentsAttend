@@ -1,16 +1,26 @@
+import { useState, useEffect } from "react"
 import {Link} from 'react-router-dom'
-import logo from '/icon/main-favicon.svg'
-import userIcon from '/image/profile_photo.svg'
 import NavItem from "./NavItem";
+import Axios from "axios"
 
 function Navbar() {
+  const API = import.meta.env.VITE_SERVER_URL;
+  const profileOfUser = window.localStorage.getItem('userEmail');
+  const [photo, setPhoto] = useState(null);
+
+  useEffect(() =>{
+    Axios.post(`${API}/profile`, { profileOfUser })
+    .then(res => {setPhoto(res.data.photo)}) 
+    .catch(error => error)
+  },[API, profileOfUser])
+
   return (
     <nav>
         <div className="logo-icon">
-            <Link to="/"><img src={logo} alt="website logo"/></Link>
+            <Link to="/"><img src='/icon/attend-favicon.svg' alt="website logo"/></Link>
         </div>
         <div className="profile-icon">
-            <Link to="/profile"><img src={userIcon} alt="profile photo logo"/></Link>
+            <Link to="/profile"><img src={photo ? `${API}/images/${photo}` : `/image/profile_photo.svg`} alt="profile photo"/></Link>
         </div>
         <div className="nav-items">
             <NavItem path={'/'} label={'home'}/>
