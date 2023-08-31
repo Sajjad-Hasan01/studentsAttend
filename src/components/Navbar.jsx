@@ -20,7 +20,7 @@ function Navbar() {
             <Link to="/"><img src='/icon/attend-favicon.svg' alt="website logo"/></Link>
         </div>
         <div className="profile-icon">
-            <Link to="/profile"><img src={photo ? `${API}/images/${photo}` : `/image/profile_photo.svg`} alt="profile photo"/></Link>
+            <Link to="/profile"><img src={`${API}/images/${photo}`} onError={(e)=>{e.target.src=`/image/profile_photo.svg`}} alt="profile photo"/></Link>
         </div>
         <div className="nav-items">
             <NavItem path={'/'} label={'home'}/>

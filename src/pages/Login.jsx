@@ -44,7 +44,6 @@ const Login = () => {
   function axiosPost(url, data) {
     Axios.post(url, data)
     .then(res => {
-      console.log(res.data);
       if (res.data.code === 0) {
         window.localStorage.setItem('userEmail', res.data.email);
         window.localStorage.setItem('userId', res.data.userId);

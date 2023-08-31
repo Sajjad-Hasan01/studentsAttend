@@ -27,8 +27,7 @@ const Profile = () => {
   const status = 'Continuous';
   const [showEdit, setShowEdit] = useState(false)
   const [submitError, setSubmitError] = useState(null)
-// console.log("name : "+name+ " / " + studentProfile.name);
-// console.log(studentProfile);
+
   function checkName(value) {
     if (!value) {setNameError("this field required"); setName(null); return false}
     else {setNameError(false); setName(value); return true}
@@ -74,7 +73,7 @@ const Profile = () => {
     <main>
     <section className="profile-sec">
         <div className="profile-img">
-            <img src={studentProfile.photo ? `${API}/images/${studentProfile.photo}` : `/image/profile_photo.svg`} alt="profile photo"/>
+            <img src={`${API}/images/${studentProfile.photo}`} onError={(e)=>{e.target.src = `/image/profile_photo.svg`}} alt="profile photo"/>
         </div>
         <div className="profile-title">
             <h2 className="profile-name">{studentProfile?.name || 'profile name'}</h2>

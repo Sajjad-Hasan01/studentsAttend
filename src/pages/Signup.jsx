@@ -81,10 +81,11 @@ const Signup = () => {
         window.localStorage.setItem('userEmail', res.data.email);
         window.localStorage.setItem('userId', res.data.userId);
         setCookies('access_token', res.data.token);
-        setSubmitError(res.data.message)
+        setSubmitError(res.data.message);
         navigate('/profile');
       }else if (res.data.code === 11000) {
         setEmailError(res.data.message);
+        setSubmitError(res.data.message);
       } else setSubmitError('there is error, please try again later');
     }).catch(() => setSubmitError('there is error, please try again later'))
   }

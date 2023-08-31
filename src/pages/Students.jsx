@@ -1,13 +1,20 @@
 import FilterBar from "../components/FilterBar";
 import DisplayStudents from "../components/DisplayStudents";
-import {studentsData} from "../assets/js/studentsData";
-import { createElement, useState } from "react";
+// import {studentsData} from "../assets/js/studentsData";
+import { createElement, useState, useEffect } from "react";
+import Axios from "axios";
 
 const Students = () => {
-    //  'a','b','c','d','e',"Continuous","Warning","Separation"
-    // const [filterChecks, setFilterChecks] = useState(['a','b','c','d','e'])
     const [filterGroups, setFilterGroups] = useState(['a','b','c','d','e'])
     const [filterStatus, setFilterStatus] = useState(["Continuous","Warning","Separation"])
+    const [studentsData, setStudentsData] = useState([])
+    const API = import.meta.env.VITE_SERVER_URL;
+
+    useEffect(() =>{
+        Axios.get(`${API}/students`)
+        .then(res => {setStudentsData(res.data)}) 
+        .catch(error => error)
+    },[API])
 
     const filteredStudentsData = studentsData.filter(student => {
         if (filterGroups.length > 0 && filterStatus.length > 0) {
@@ -56,21 +63,17 @@ const Students = () => {
 
     const filterGroupsHandler = (event) => {
         if (event.target.checked) {
-          setFilterGroups([...filterGroups, event.target.value]);
+            setFilterGroups([...filterGroups, event.target.value]);
         } else {
-          setFilterGroups(
-            filterGroups.filter((filterCheck) => filterCheck !== event.target.value)
-          )
+            setFilterGroups(filterGroups.filter(filterCheck => filterCheck !== event.target.value))
         }
     }
 
     const filterStatusHandler = (event) => {
         if (event.target.checked) {
-          setFilterStatus([...filterStatus, event.target.value]);
+            setFilterStatus([...filterStatus, event.target.value]);
         } else {
-          setFilterStatus(
-            filterStatus.filter((filterCheck) => filterCheck !== event.target.value)
-          )
+            setFilterStatus(filterStatus.filter(filterCheck => filterCheck !== event.target.value))
         }
     }
 

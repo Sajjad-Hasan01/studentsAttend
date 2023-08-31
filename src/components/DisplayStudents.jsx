@@ -15,9 +15,9 @@ const DisplayStudents = ({data}) => {
                 </tr>
             </thead>
             <tbody id="stdTable">
-                {data.map(({name, email, status}, n)=>{
+                {data.map(({name, email, status, photo}, n)=>{
                     return(
-                        <StudentRow name={name} email={email} status={status} key={n}/>
+                        <StudentRow name={name} email={email} status={status} photo={photo} key={n}/>
                     )
                 })}
             </tbody>
