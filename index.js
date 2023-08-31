@@ -9,9 +9,10 @@ const StudentModel = require('./models/Students');
 require("dotenv").config();
 
 const app = express();
+const domain = process.env.DOMAIN;
 const corsOptions = {
-    origin: 'https://studentsattend.onrender.com',
-}
+    origin: domain
+};
 app.use(cors(corsOptions));
 app.use(express.json());
 app.use(express.static('public'));
@@ -54,6 +55,12 @@ app.post('/login', async (req, res) => {
     const token = jwt.sign({id: user._id}, process.env.SECRET);
     return res.json({code: 0, message:'login succeed', email, token, userId:user._id});
 });
+
+app.get('/students', async (req, res) => {
+    const students = await StudentModel.find();
+    if(students) return res.json(students);
+    // if(students) return res.json({name, email, group, photo});
+})
 
 app.post('/profile', async (req, res) => {
     const {profileOfUser} = req.body;
