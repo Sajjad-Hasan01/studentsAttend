@@ -1,81 +1,106 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import Axios from 'axios'
 import FilterBar from "../components/FilterBar";
 import DisplayAttendance from "../components/DisplayAttendance";
-import {studentsData} from "../assets/js/studentsData";
+import Loading from "../components/Loading";
 
 const Attendance = () => {
-    const [filterGroups, setFilterGroups] = useState(['a','b','c','d','e'])
-    const [filterStatus, setFilterStatus] = useState(["Continuous","Warning","Separation"])
+    const [filterSort, setFilterSort] = useState(true);
+    const [filterGroups, setFilterGroups] = useState(['a','b','c','d','e']);
+    const [filterStatus, setFilterStatus] = useState(["Continuous","Warning","Separation"]);
+    const [studentsData, setStudentsData] = useState([]);
+    const [attendCheckList, setAttendCheck] = useState([]);
+    const [isShown, setIsShown] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
+    const API = import.meta.env.VITE_SERVER_URL;
 
-    const filteredStudentsData = studentsData.filter(student => {
-        if (filterGroups.length > 0 && filterStatus.length > 0) {
-            for (let i = 0; i < filterGroups.length; i++) {
-                if (student.group == filterGroups[i]) {
-                    for (let j = 0; j < filterStatus.length; j++) {
-                        if (student.status == filterStatus[j]) {return true}
+    useEffect(() =>{
+        Axios.get(`${API}/students`)
+        .then(res => {setStudentsData(res.data)}) 
+        .catch(error => error)
+    },[API])
+    
+    let filteredStudentsData = [];
+
+    function filtering() {
+        filteredStudentsData = studentsData.filter(student => {
+            if (filterGroups.length > 0 && filterStatus.length > 0) {
+                for (let i = 0; i < filterGroups.length; i++) {
+                    if (student.group == filterGroups[i]) {
+                        for (let j = 0; j < filterStatus.length; j++) {
+                            if (student.status == filterStatus[j]) {return true}
+                        }
                     }
                 }
-            }
-        } else return true
-    });
+            } else return true
+        })
+        filterSort ? filteredStudentsData.sort(nameASC) : filteredStudentsData.sort(nameDESC);
+    }
+    filtering();
 
     function nameASC(a, b) {
-        if (a.name < b.name) {
-            return -1;
-        }
-        if (a.name > b.name) {
-            return 1;
-        }
-        return 0;
+        if (a.user.name > b.user.name) return 1;
+        else if (a.user.name < b.user.name)  return -1;
     }
 
     function nameDESC(a, b) {
-        if (a.name > b.name) {
-            return -1;
-        }
-        if (a.name < b.name) {
-            return 1;
-        }
-        return 0;
+        if (a.user.name > b.user.name) return -1;
+        else if (a.user.name < b.user.name) return 1;
     }
 
-    const sortHandler = event => {
-        event.target.value === 'DESC' ? 
-        filteredStudentsData.sort(nameDESC) :
-        filteredStudentsData.sort(nameASC)
+    const sortHandler = (event) => {
+        if (event.target.value === 'DESC') setFilterSort(filterSort => !filterSort);
+        else setFilterSort(filterSort => !filterSort);
+        filtering;
     }
 
     const filterGroupsHandler = (event) => {
-        if (event.target.checked) {
-          setFilterGroups([...filterGroups, event.target.value]);
-        } else {
-          setFilterGroups(
-            filterGroups.filter((filterCheck) => filterCheck !== event.target.value)
-          )
-        }
+        if (event.target.checked) setFilterGroups([...filterGroups, event.target.value]);
+        else setFilterGroups(filterGroups.filter(filterCheck => filterCheck !== event.target.value));
+        filtering;
     }
 
     const filterStatusHandler = (event) => {
-        event.target.checked ? setFilterStatus([...filterStatus, event.target.value]) :
-        setFilterStatus(filterStatus.filter((filterCheck) => filterCheck !== event.target.value))
+        if (event.target.checked) setFilterStatus([...filterStatus, event.target.value]);
+        else setFilterStatus(filterStatus.filter(filterCheck => filterCheck !== event.target.value));
+        filtering;
+    }
+    
+    function startHandler() {
+        setAttendCheck(filteredStudentsData.map(s => {return{id: s._id, attendance: false}}));
+        setIsShown(current => !current);
     }
 
-    const [isShown, setIsShown] = useState(false);
+    function checkboxHandler(checkbox){
+        let target = attendCheckList.find(item => item.id === checkbox.id);
+        if (target) target.attendance = checkbox.checked;
+    }
 
-    const handleClick = () => {
-        setIsShown(current => !current);
-    };
+    function finishHandler() {
+        setIsLoading(true);
+        axiosPost(`${API}/attendance`, attendCheckList);
+    }
 
-  return (
+    function axiosPost(url, data) {
+        Axios.post(url, data).then(res => {
+            if (res.data.code === 0) {
+                setIsLoading(false);
+                window.location.reload(true);
+            } else console.log(res.data.message);
+        }).catch(() => console.log('there is error, please try again later'));
+    }
+
+    return (
     <main>
-    {!isShown && <button type="submit" id="startLecBtn" className="form-control btn add-lecture" onClick={handleClick}>start</button>}
-    {isShown && <>
-        <FilterBar sortHandler={sortHandler} filterGroupsHandler={filterGroupsHandler} filterStatusHandler={filterStatusHandler}/>
-        <DisplayAttendance data={filteredStudentsData}/>
-        <button type="button" id="saveTableBtn" className="form-control btn svTbl" onClick={handleClick}>finish</button>
-    </>}
+        {!isShown && <button type="submit" id="startLecBtn" className="form-control btn add-lecture" onClick={startHandler}>start</button>}
+        {isShown && <>
+            <FilterBar sortHandler={sortHandler} filterGroupsHandler={filterGroupsHandler} filterStatusHandler={filterStatusHandler}/>
+            <DisplayAttendance data={filteredStudentsData} checkboxHandler={checkboxHandler}/>
+            <button type="button" id="saveTableBtn" className="form-control btn svTbl" onClick={finishHandler}>finish</button>
+        </>}
+        { isLoading && <Loading/> }
     </main>
-  )
+    )
 }
 
 export default Attendance

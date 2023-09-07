@@ -3,6 +3,7 @@ import { Link, useNavigate, Navigate } from "react-router-dom";
 import EmailInput from "../components/EmailInput";
 import PasswordInput from "../components/PasswordInput";
 import SubmitButton from "../components/SubmitButton";
+import Loading from "../components/Loading";
 import Axios from "axios";
 import {useCookies} from 'react-cookie';
 
@@ -13,12 +14,13 @@ const Login = () => {
     [passwordValid, setPasswordValid] = useState(true),
     [passwordError, setPasswordError] = useState(''),
     [showPassword, setShowPassword] = useState(false),
-    [submitError, setSubmitError] = useState('');
+    [submitError, setSubmitError] = useState(''),
+    [isLoading, setIsLoading] = useState(false);
 
   const navigate = useNavigate(),
     [_,setCookies] = useCookies(['access_token']);
 
-  if (window.localStorage.getItem('userEmail')) return <Navigate to={'/profile'}/>;
+  if (window.localStorage.getItem('userId')) return <Navigate to={'/profile'}/>;
 
   const API = import.meta.env.VITE_SERVER_URL;
 
@@ -37,6 +39,7 @@ const Login = () => {
   function checkForm(e) {
     e.preventDefault();
     if (checkEmail(email) && checkPassword(password)){
+      setIsLoading(true);
       axiosPost(`${API}/login`, {email, password});
     } else setSubmitError("check fields!")
   }
@@ -45,9 +48,9 @@ const Login = () => {
     Axios.post(url, data)
     .then(res => {
       if (res.data.code === 0) {
-        window.localStorage.setItem('userEmail', res.data.email);
         window.localStorage.setItem('userId', res.data.userId);
         setCookies('access_token', res.data.token);
+        setIsLoading(false);
         navigate('/profile');
       } else if (res.data.code === 1) {
         setEmailError(res.data.message);
@@ -76,6 +79,8 @@ const Login = () => {
         </div>
       </form>
     </section>
+
+    { isLoading && <Loading/> }
     </main>
   )
 }

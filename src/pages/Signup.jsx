@@ -1,33 +1,35 @@
-import { useState } from "react"
-import { Link, useNavigate, Navigate } from "react-router-dom"
-import TextInput from "../components/TextInput"
-import EmailInput from "../components/EmailInput"
-import PasswordInput from "../components/PasswordInput"
-import ConfirmPasswordInput from "../components/ConfirmPasswordInput"
-import GroupSelect from "../components/GroupSelect"
-import FileInput from "../components/FileInput"
-import SubmitButton from "../components/SubmitButton"
-import Axios from "axios"
-import {useCookies} from 'react-cookie'
+import { useState } from "react";
+import { Link, useNavigate, Navigate } from "react-router-dom";
+import TextInput from "../components/TextInput";
+import EmailInput from "../components/EmailInput";
+import PasswordInput from "../components/PasswordInput";
+import ConfirmPasswordInput from "../components/ConfirmPasswordInput";
+import GroupSelect from "../components/GroupSelect";
+import FileInput from "../components/FileInput";
+import SubmitButton from "../components/SubmitButton";
+import Loading from "../components/Loading";
+import Axios from "axios";
+import {useCookies} from 'react-cookie';
 
 const Signup = () => {
-  const [name, setName] = useState('')
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-  const [rePassword, setRePassword] = useState('')
-  const [showPassword, setShowPassword] = useState(false)
-  const [group, setGroup] = useState('')
-  const [photo, setPhoto] = useState(null)
-  const [submitError, setSubmitError] = useState('')
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [rePassword, setRePassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
+  const [group, setGroup] = useState('');
+  const [photo, setPhoto] = useState(null);
+  const [submitError, setSubmitError] = useState('');
 
-  const [nameError, setNameError] = useState(false)
-  const [emailError, setEmailError] = useState(false)
-  const [passwordError, setPasswordError] = useState(false)
-  const [rePasswordError, setRePasswordError] = useState(false)
-  const [groupValid, setGroupValid] = useState(true)
+  const [nameError, setNameError] = useState(false);
+  const [emailError, setEmailError] = useState(false);
+  const [passwordError, setPasswordError] = useState(false);
+  const [rePasswordError, setRePasswordError] = useState(false);
+  const [groupValid, setGroupValid] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
 
   const navigate = useNavigate()
-  const [_,setCookies] = useCookies(['access_token'])
+  const [_,setCookies] = useCookies(['access_token']);
 
   if (window.localStorage.getItem('userEmail')) return <Navigate to={'/profile'}/>;
 
@@ -69,7 +71,7 @@ const Signup = () => {
       formData.append('password', password);
       formData.append('group', group);
       formData.append('profilePhoto', photo);
-      
+      setIsLoading(true);
       axiosPost(`${API}/signup`, formData);
     } else setSubmitError("check fields!")
   }
@@ -82,6 +84,7 @@ const Signup = () => {
         window.localStorage.setItem('userId', res.data.userId);
         setCookies('access_token', res.data.token);
         setSubmitError(res.data.message);
+        setIsLoading(false);
         navigate('/profile');
       }else if (res.data.code === 11000) {
         setEmailError(res.data.message);
@@ -109,6 +112,7 @@ const Signup = () => {
         </div>
       </form>
     </section>
+    { isLoading && <Loading/> }
     </main>
   )
 }

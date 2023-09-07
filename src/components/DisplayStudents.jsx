@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import StudentRow from './StudentRow'
 
-const DisplayStudents = ({data}) => {
+const DisplayStudents = ({data, dialog}) => {
 
     return (
     <section className="table-container dspAllStdCon">    
@@ -15,9 +15,9 @@ const DisplayStudents = ({data}) => {
                 </tr>
             </thead>
             <tbody id="stdTable">
-                {data.map(({name, email, status, photo}, n)=>{
+                {data.map((s, n)=>{
                     return(
-                        <StudentRow name={name} email={email} status={status} photo={photo} key={n}/>
+                        <StudentRow name={s.user.name} email={s.user.email} status={s.status} photo={s.user.photo} dialog={dialog} key={n}/>
                     )
                 })}
             </tbody>

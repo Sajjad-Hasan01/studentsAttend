@@ -1,7 +1,6 @@
-import { useState } from 'react';
 import AttendRow from './AttendRow'
 
-const DisplayAttendance = ({data}) => {
+const DisplayAttendance = ({data, checkboxHandler}) => {
   return (
     <div className="table-container">
         <table className="table dspAllStd">
@@ -13,9 +12,9 @@ const DisplayAttendance = ({data}) => {
                 </tr>
             </thead>
             <tbody id="stdTable">
-                {data.map(({name}, n)=>{
+                {data.map((s, n)=>{
                     return(
-                        <AttendRow name={name} key={n}/>
+                        <AttendRow name={s.user.name} photo={s.user.photo} id={s._id} checkboxHandler={checkboxHandler} key={n}/>
                     )
                 })}
             </tbody>

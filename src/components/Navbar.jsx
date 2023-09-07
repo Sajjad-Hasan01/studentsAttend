@@ -5,12 +5,12 @@ import Axios from "axios"
 
 function Navbar() {
   const API = import.meta.env.VITE_SERVER_URL;
-  const profileOfUser = window.localStorage.getItem('userEmail');
+  const profileOfUser = window.localStorage.getItem('userId');
   const [photo, setPhoto] = useState(null);
 
   useEffect(() =>{
     Axios.post(`${API}/profile`, { profileOfUser })
-    .then(res => {setPhoto(res.data.photo)}) 
+    .then(res => setPhoto(res.data.user.photo)) 
     .catch(error => error)
   },[API, profileOfUser])
 
