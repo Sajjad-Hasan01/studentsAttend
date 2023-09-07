@@ -28,22 +28,6 @@ const storage = multer.diskStorage({
 
 const upload = multer({storage: storage});
 
-// app.post('/signup', upload.single('profilePhoto'), async (req, res) => {
-//     const {name, email, password, group} = req.body, photo = req.file?.filename || null;
-    
-//     const user = await StudentModel.findOne({email});
-//     if (user) return res.json({code: 11000, message:'email already exist'});
-    
-//     const hashedPassword = bcrypt.hashSync(password,1);
-//     StudentModel.create({name, email, password: hashedPassword, group, photo});
-
-//     const getUser = await StudentModel.findOne({email});
-//     const userId = getUser.id;
-//     const token = jwt.sign({id: userId}, process.env.SECRET);
-
-//     return res.json({code: 0, message: 'Registration succeed', email, token, userId});
-// });
-
 app.post('/signup', upload.single('profilePhoto'), async (requist, response) => {
     const {name, email, password, group} = requist.body, photo = requist.file?.filename || null;
     
