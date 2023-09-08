@@ -66,10 +66,10 @@ app.post('/attendance', async (req, response) => {
 app.post('/login', async (req, res) => {
     const email= req.body.email;
     const password = req.body.password;
-    const user = await UserModel.findOne({email});
-    
+    const user = await UserModel.findOne({ email });
+    // .then()
     if (!user) return res.json({code: 1, message:`email dosen't exist, check it again or sign up`});
-    
+    // console.log(user);
     const isPasswordValid = await bcrypt.compare(password , user.password);
     if (!isPasswordValid) return res.json({code: 2, message:'password is not correct'});
 
