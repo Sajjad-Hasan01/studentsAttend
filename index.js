@@ -63,18 +63,20 @@ app.post('/attendance', async (req, response) => {
     return response.json({code: 0, message: "Done"});
 });
 
-app.post('/login', async (req, res) => {
+app.post('/login', async (req, response) => {
     const email= req.body.email;
     const password = req.body.password;
-    const user = await UserModel.findOne({ email });
-    // .then()
-    if (!user) return res.json({code: 1, message:`email dosen't exist, check it again or sign up`});
-    // console.log(user);
-    const isPasswordValid = await bcrypt.compare(password , user.password);
-    if (!isPasswordValid) return res.json({code: 2, message:'password is not correct'});
 
-    const token = jwt.sign({id: user._id}, process.env.SECRET);
-    return res.json({code: 0, message:'login succeed', email, token, userId:user._id});
+    UserModel.findOne({ email })
+    .then(user => {
+        bcrypt.compare(password , user.password)
+        .then(isPasswordValid => {
+            if (isPasswordValid) {
+                const token = jwt.sign({id: user._id}, process.env.SECRET);
+                response.json({code: 0, message:'login succeed', email, token, userId: user._id});
+            } else response.json({ code: 2, message:'password is not correct' })
+        }).catch(e => response.json(e.message));
+    }).catch(() => response.json({code: 1, message:`email dosen't exist, check it again or sign up`}));
 });
 
 app.get('/students', async (req, res) => {
