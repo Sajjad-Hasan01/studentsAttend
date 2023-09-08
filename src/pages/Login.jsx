@@ -53,14 +53,16 @@ const Login = () => {
         setIsLoading(false);
         navigate('/profile');
       } else if (res.data.code === 1) {
+        setIsLoading(false);
         setEmailError(res.data.message);
         setSubmitError("check fields!");
       } else if (res.data.code === 2) {
+        setIsLoading(false);
         setPasswordError(res.data.message);
         setPasswordValid(false);
         setSubmitError("check fields!");
-      } else setSubmitError('there is error, please try again later');
-    }).catch(() => setSubmitError('there is error, please try again later'))
+      } else {setIsLoading(false); setSubmitError('there is error, please try again later');}
+    }).catch(() => {setIsLoading(false); setSubmitError('there is error, please try again later');})
   }
 
   return (

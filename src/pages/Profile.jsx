@@ -60,10 +60,11 @@ const Profile = () => {
         setIsLoading(false);
         window.location.reload(true)
       } else if (res.data.code === 1) {
+        setIsLoading(false);
         setSubmitError(res.data.message);
         console.log(res.data.error);
-      } else setSubmitError('there is error, please try again later');
-    }).catch(() => setSubmitError('there is error, please try again later'))
+      } else {setIsLoading(false); setSubmitError('there is error, please try again later');}
+    }).catch(() => {setIsLoading(false); setSubmitError('there is error, please try again later')})
   }
 
   const removeCookies = () => {

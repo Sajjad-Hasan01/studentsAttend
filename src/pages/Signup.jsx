@@ -87,10 +87,11 @@ const Signup = () => {
         setIsLoading(false);
         navigate('/profile');
       }else if (res.data.code === 11000) {
+        setIsLoading(false);
         setEmailError(res.data.message);
         setSubmitError(res.data.message);
-      } else setSubmitError('there is error, please try again later');
-    }).catch(() => setSubmitError('there is error, please try again later'))
+      } else {setIsLoading(false); setSubmitError('there is error, please try again later');}
+    }).catch(() => {setIsLoading(false); setSubmitError('there is error, please try again later');})
   }
 
   return (
