@@ -5,19 +5,23 @@ const multer = require('multer');
 const path = require('path');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const cookieParser = require('cookie-parser');
 const UserModel = require('./models/Users.model');
 const StudentModel = require('./models/Students.model');
 const LectureModel = require('./models/Lectures.model');
+const { cookieJwtAuth } = require('./middleware/cookieJwtAuth');
 require("dotenv").config();
 
 const app = express();
 const domain = process.env.DOMAIN;
 const corsOptions = {
-    origin: domain
+    origin: domain,
+    credentials: true
 };
 app.use(cors(corsOptions));
 app.use(express.json());
 app.use(express.static('public'));
+app.use(cookieParser());
 
 mongoose.connect(process.env.DB);
 
@@ -64,20 +68,31 @@ app.post('/attendance', async (req, response) => {
 });
 
 app.post('/login', async (req, response) => {
-    const email= req.body.email;
-    const password = req.body.password;
+    const {email, password} = req.body;
 
     UserModel.findOne({ email })
     .then(user => {
         bcrypt.compare(password , user.password)
         .then(isPasswordValid => {
             if (isPasswordValid) {
-                const token = jwt.sign({id: user._id}, process.env.SECRET);
-                response.json({code: 0, message:'login succeed', email, token, userId: user._id});
-            } else response.json({ code: 2, message:'password is not correct' })
-        }).catch(e => response.json(e.message));
-    }).catch(() => response.json({code: 1, message:`email dosen't exist, check it again or sign up`}));
+                delete user.password;
+                const token = jwt.sign(user.toObject() , process.env.SECRET, { expiresIn: '30d' });
+                
+                response.cookie("token", token, {
+                    httpOnly: false,
+                    secure: false,
+                    maxAge: 1000 * 60 * 60 * 24 * 30,
+                    signed:false,
+                }).json({ success: true, message: 'login succeed' });
+
+                // response.redirect("/");
+            } else response.json({ success: false, message: 'password is not correct' })
+        }).catch(e => response.json({message: e.message}));
+    }).catch(() => response.json({success: false, message: `email dosen't exist, check it again or sign up`}));
 });
+
+// app.post('/login', loginRoute);
+// app.post('/add', cookieJwtAuth, addRoute);
 
 app.get('/students', async (req, res) => {
     // const options = {
@@ -90,11 +105,36 @@ app.get('/students', async (req, res) => {
     if(students) return res.json(students);
 })
 
+function parseCookies (request) {
+    const list = {};
+    const cookieHeader = request.headers['set-cookie'];
+
+    if (!cookieHeader) return list;
+    const cookies = cookieHeader[0];
+
+    cookies.split(`,`).forEach(cookie => {
+        let [ name, ...rest] = cookie.split(`=`);
+        name = name?.trim();
+        if (!name) return;
+        const value = rest.join(`=`).trim();
+        if (!value) return;
+        list[name] = decodeURIComponent(value);
+    });
+
+    return list;
+}
+
 app.post('/profile', async (req, res) => {
-    const {profileOfUser} = req.body;
-    StudentModel.findOne({ user: profileOfUser}).populate('user').populate('lectures')
-    .then(student => res.json(student))
-    .catch(error => res.json(error))
+    // cookieJwtAuth()
+    // const token = parseCookies(req)?.token;
+    const token = await req.cookies?.token;
+    
+    if (token) {
+        const user = jwt.verify(token, process.env.SECRET);
+        StudentModel.findOne({ user: user._id }).populate('user').populate('lectures')
+        .then(student => res.json(student))
+        .catch(error => res.json(error))
+    }
 })
 
 app.post('/clear', async (req, res) => {
@@ -130,5 +170,11 @@ app.post('/updateStudent', upload.single('profilePhoto'), async (req, res) => {
         }).catch(error => res.json({code: 1, message: "user not found", error}));
     }
 })
+
+
+//set a simple for homepage route
+// app.get('/', (req, res) => {
+//     res.send('welcome to a simple HTTP cookie server');
+// });
 
 app.listen(3000, ()=>console.log("Server is live !"));
