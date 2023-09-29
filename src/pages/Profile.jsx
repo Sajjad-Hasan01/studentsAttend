@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import {useCookies} from 'react-cookie';
+// import {useCookies} from 'react-cookie';
 import Axios from "axios";
 import TextInput from "../components/TextInput";
 import GroupSelect from "../components/GroupSelect";
@@ -10,16 +10,23 @@ import Loading from "../components/Loading";
 const Profile = () => {
   const [studentProfile, setStudentProfile] = useState({}),
   [isLoading, setIsLoading] = useState(false),
-    [_,setCookies] = useCookies(['access_token']),
-    navigate = useNavigate(),
-    API = import.meta.env.VITE_SERVER_URL,
-    profileOfUser = window.localStorage.getItem('userId');
+    // [_,setCookies] = useCookies(['token']),
+    // navigate = useNavigate(),
+    API = import.meta.env.VITE_SERVER_URL;
 
-  useEffect(() =>{
-    Axios.post(`${API}/profile`, { profileOfUser })
-    .then(res => {setStudentProfile(res.data); setName(res.data.user.name); setGroup(res.data.group);}) 
-    .catch(error => setSubmitError(error))
-  },[API, profileOfUser])
+  useEffect(() => {
+    setIsLoading(true);
+    // console.log("///");
+    Axios.post(`${API}/profile`, {withCredentials: true}) 
+    .then(res => {
+      // console.log(" => ");
+      // console.log(res.data);
+      setStudentProfile(res.data); 
+      setName(res.data.user.name); 
+      setGroup(res.data.group);
+      setIsLoading(false);
+    }).catch(error => console.log(error))
+  },[API]);
 
   const [name, setName] = useState(null),
     [nameError, setNameError] = useState(false),
@@ -47,7 +54,7 @@ const Profile = () => {
       formData.append('name', name);
       formData.append('group', group);
       formData.append('profilePhoto', photo);
-// console.log(studentProfile.user._id);
+
       setIsLoading(true);
       axiosPost(`${API}/updateStudent`, formData);
     } else setSubmitError("check fields!")
@@ -67,11 +74,11 @@ const Profile = () => {
     }).catch(() => {setIsLoading(false); setSubmitError('there is error, please try again later')})
   }
 
-  const removeCookies = () => {
-    setCookies('access_token', '')
-    window.localStorage.removeItem('userId')
-    navigate('/login')
-  }
+  // const removeCookies = () => {
+  //   setCookies('access_token', '')
+  //   window.localStorage.removeItem('userId')
+  //   navigate('/login')
+  // }
 
   return (
     <main>
@@ -86,7 +93,9 @@ const Profile = () => {
         </div>
         <div className="modal-footer">
           <button className="secBtn" onClick={()=>setShowEdit(true)}>edit profile</button>
-          <button className="secBtn danger" onClick={removeCookies}>log out</button>
+          <button className="secBtn danger" 
+          // onClick={removeCookies}
+          >log out</button>
         </div>
     </section>
 

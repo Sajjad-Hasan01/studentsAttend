@@ -18,9 +18,10 @@ const Login = () => {
     [isLoading, setIsLoading] = useState(false);
 
   const navigate = useNavigate(),
-    [_,setCookies] = useCookies(['access_token']);
+    // [_,setCookies] = useCookies(['access_token']);
+    {setCookies} = useCookies(['access_token']);
 
-  if (window.localStorage.getItem('userId')) return <Navigate to={'/profile'}/>;
+  // if (window.localStorage.getItem('userId')) return <Navigate to={'/profile'}/>;
 
   const API = import.meta.env.VITE_SERVER_URL;
 
@@ -45,24 +46,24 @@ const Login = () => {
   }
 
   function axiosPost(url, data) {
-    Axios.post(url, data)
+    Axios.post(url, data, {withCredentials: true})
     .then(res => {
-      if (res.data.code === 0) {
-        window.localStorage.setItem('userId', res.data.userId);
-        setCookies('access_token', res.data.token);
+      if (res.data.success) {
+        // window.localStorage.setItem('userId', res.data.userId);
+        // setCookies('access_token', res.data.token);
         setIsLoading(false);
-        navigate('/profile');
-      } else if (res.data.code === 1) {
+        setSubmitError("");
+        // navigate('/profile');
+      } else {
         setIsLoading(false);
         setEmailError(res.data.message);
-        setSubmitError("check fields!");
-      } else if (res.data.code === 2) {
-        setIsLoading(false);
-        setPasswordError(res.data.message);
-        setPasswordValid(false);
-        setSubmitError("check fields!");
-      } else {setIsLoading(false); setSubmitError('there is error, please try again later');}
-    }).catch(() => {setIsLoading(false); setSubmitError('there is error, please try again later');})
+        setSubmitError(`please check fields and try again | ${res.data.message}`);
+        console.log(res.data);
+      }
+    }).catch(() => {
+      setIsLoading(false);
+      setSubmitError('there is error, please try again later');
+    })
   }
 
   return (

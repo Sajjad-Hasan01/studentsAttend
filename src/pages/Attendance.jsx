@@ -36,7 +36,6 @@ const Attendance = () => {
         })
         filterSort ? filteredStudentsData.sort(nameASC) : filteredStudentsData.sort(nameDESC);
     }
-    filtering();
 
     function nameASC(a, b) {
         if (a.user.name > b.user.name) return 1;
@@ -90,6 +89,8 @@ const Attendance = () => {
         }).catch(() => console.log('there is error, please try again later'));
     }
 
+    filtering();
+    
     return (
     <main>
         {!isShown && <button type="submit" id="startLecBtn" className="form-control btn add-lecture" onClick={startHandler}>start</button>}
