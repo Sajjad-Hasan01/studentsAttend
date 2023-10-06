@@ -1,13 +1,12 @@
 const jwt = require('jsonwebtoken');
 
-exports.cookieJwtAuth = (req, res, next) => {
-    const token = req?.cookie.token;
+exports.cookieJwtAuth = async (req, res, next) => {
+    const accessToken = await req.cookies?.["access-token"];
     try {
-        const user = jwt.verify(token, process.env.SECRET);
-        req.user = user;
-        next();
+        const {id} = jwt.verify(accessToken, process.env.SECRET);
+        req.id = id;
+        next(req, res);
     } catch (error) {
-        res?.clearCookie("token");
-        return res?.redirect("/");
+        return res.clearCookie("access-token").status(403).send("not authenticated, you need to login or sign-up");
     }
 };
