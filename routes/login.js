@@ -14,8 +14,8 @@ exports.loginRoute = async (req, res) => {
                 const accessToken = jwt.sign({id: user._id} , process.env.SECRET, { expiresIn: period });
                 
                 res.cookie("access-token", accessToken, {
-                    httpOnly: false,
-                    secure: false,
+                    httpOnly: true,
+                    secure: true,
                     maxAge: 1000 * period,
                     signed:false,
                 }).status(202).send('login successed');
