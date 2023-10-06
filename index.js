@@ -28,7 +28,7 @@ app.use(cors(corsOptions));
 app.options('*', cors(corsOptions)); // I thought this line not important
 app.use(express.json());
 app.use(express.static('public'));
-app.use(cookieParser());
+app.use(cookieParser(process.env.SECRET));
 
 dbConnection();
 

@@ -20,8 +20,8 @@ exports.signupRoute = async (req, res) => {
                 res.cookie("access-token", accessToken, {
                     httpOnly: true,
                     secure: true,
-                    maxAge: 1000 * period,
                     signed: true,
+                    maxAge: 1000 * period
                 }).status(201).send('Registration succeed');
             }).catch(() => res.status(501).send('there is error, please try again later'));
         }).catch(() => res.status(501).send('there is error, please try again later'));
