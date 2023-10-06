@@ -1,18 +1,17 @@
-import { useState, useEffect } from "react"
-import {Link} from 'react-router-dom'
+import { useState, useEffect } from "react";
+import {Link} from 'react-router-dom';
 import NavItem from "./NavItem";
-import Axios from "axios"
+import Axios from "axios";
 
 function Navbar() {
   const API = import.meta.env.VITE_SERVER_URL;
-  const profileOfUser = window.localStorage.getItem('userId');
   const [photo, setPhoto] = useState(null);
 
-  useEffect(() =>{
-    Axios.post(`${API}/profile`, { profileOfUser })
-    .then(res => setPhoto(res.data.user.photo)) 
-    .catch(error => error)
-  },[API, profileOfUser])
+  useEffect(() => {
+    Axios.get(`${API}/profile`, {withCredentials: true})
+    .then(res => setPhoto(res?.data?.user?.photo)) 
+    .catch(error => error);
+  },[API])
 
   return (
     <nav>

@@ -1,7 +1,9 @@
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import FilterBar from "../components/FilterBar";
 import DisplayStudents from "../components/DisplayStudents";
 import StudentModal from "../components/StudentModal";
-import { useState, useEffect } from "react";
+import Loading from "../components/Loading";
 import Axios from "axios";
 
 const Students = () => {
@@ -11,13 +13,22 @@ const Students = () => {
     const [studentsData, setStudentsData] = useState([]);
     const [modalToggle, setModalToggle] = useState(false);
     const [profile, setProfile] = useState({});
+    const [isLoading, setIsLoading] = useState(false);
     const API = import.meta.env.VITE_SERVER_URL;
+    const navigate = useNavigate();
 
     useEffect(() =>{
-        Axios.get(`${API}/students`)
-        .then(res => {setStudentsData(res.data)}) 
-        .catch(error => error)
-    },[API])
+        setIsLoading(true);
+        Axios.get(`${API}/students`, {withCredentials: true})
+        .then(res => {
+            setStudentsData(res.data);
+            console.clear();
+            setIsLoading(false);
+        }).catch(error => {
+            console.log(error);
+            error.response.status == 403 ? console.log(error.response) : console.log(error);
+        });
+    },[API, navigate]);
     
     let filteredStudentsData = [];
 
@@ -78,6 +89,7 @@ const Students = () => {
         <FilterBar sortHandler={sortHandler} filterGroupsHandler={filterGroupsHandler} filterStatusHandler={filterStatusHandler}/>
         <DisplayStudents data={filteredStudentsData} dialog={openDialog}/>        
         { modalToggle && <StudentModal openToggle={setModalToggle} profile={profile}/> }
+        { isLoading && <Loading/> }
         </main>
     )
 }

@@ -3,6 +3,8 @@ import Axios from 'axios'
 import FilterBar from "../components/FilterBar";
 import DisplayAttendance from "../components/DisplayAttendance";
 import Loading from "../components/Loading";
+import Alert from "../components/Alert";
+import Warn from "../components/Warn";
 
 const Attendance = () => {
     const [filterSort, setFilterSort] = useState(true);
@@ -10,13 +12,17 @@ const Attendance = () => {
     const [filterStatus, setFilterStatus] = useState(["Continuous","Warning","Separation"]);
     const [studentsData, setStudentsData] = useState([]);
     const [attendCheckList, setAttendCheck] = useState([]);
-    const [isShown, setIsShown] = useState(false);
+    const [tableToggle, setTableToggle] = useState(false);
+    const [finishToggle, setFinishToggle] = useState(false);
+    const [alertToggle, setAlertToggle] = useState(false);
+    const [alertMessage, setAlertMessage] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const API = import.meta.env.VITE_SERVER_URL;
 
     useEffect(() =>{
-        Axios.get(`${API}/students`)
-        .then(res => {setStudentsData(res.data)}) 
+        setIsLoading(true);
+        Axios.get(`${API}/students`, {withCredentials: true})
+        .then(res => {setIsLoading(false); setStudentsData(res.data)}) 
         .catch(error => error)
     },[API])
     
@@ -67,7 +73,7 @@ const Attendance = () => {
     
     function startHandler() {
         setAttendCheck(filteredStudentsData.map(s => {return{id: s._id, attendance: false}}));
-        setIsShown(current => !current);
+        setTableToggle(true);
     }
 
     function checkboxHandler(checkbox){
@@ -77,28 +83,36 @@ const Attendance = () => {
 
     function finishHandler() {
         setIsLoading(true);
-        axiosPost(`${API}/attendance`, attendCheckList);
+        Axios.post(`${API}/attendance`, {attendCheckList}, {withCredentials: true})
+        .then(res => {
+            setIsLoading(false);
+            setAlertMessage(res.data);
+            setAlertToggle(true);
+        }).catch(error => {
+            setAlertMessage(error.message);
+            setAlertToggle(true);
+        });
     }
 
-    function axiosPost(url, data) {
-        Axios.post(url, data).then(res => {
-            if (res.data.code === 0) {
-                setIsLoading(false);
-                window.location.reload(true);
-            } else console.log(res.data.message);
-        }).catch(() => console.log('there is error, please try again later'));
+    function reloadHandler() {
+        location.reload();
     }
 
     filtering();
     
     return (
     <main>
-        {!isShown && <button type="submit" id="startLecBtn" className="form-control btn add-lecture" onClick={startHandler}>start</button>}
-        {isShown && <>
+        {!tableToggle && <button type="submit" id="startLecBtn" className="form-control btn add-lecture" onClick={startHandler}>start</button>}
+        {tableToggle && <>
             <FilterBar sortHandler={sortHandler} filterGroupsHandler={filterGroupsHandler} filterStatusHandler={filterStatusHandler}/>
             <DisplayAttendance data={filteredStudentsData} checkboxHandler={checkboxHandler}/>
-            <button type="button" id="saveTableBtn" className="form-control btn svTbl" onClick={finishHandler}>finish</button>
+            <button type="button" id="saveTableBtn" className="form-control btn svTbl" onClick={()=>setFinishToggle(true)}>finish</button>
         </>}
+        
+        { finishToggle && <Warn action={finishHandler} actionLabel={"Finish and Save"} message={'Would you like to finish attendance?'} setToggle={setFinishToggle} warning={false}/> }
+        
+        { alertToggle && <Alert action={reloadHandler} message={alertMessage}/> }
+
         { isLoading && <Loading/> }
     </main>
     )

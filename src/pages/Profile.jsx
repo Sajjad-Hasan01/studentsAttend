@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-// import {useCookies} from 'react-cookie';
+import {useCookies} from 'react-cookie';
 import Axios from "axios";
+import Warn from "../components/Warn";
 import TextInput from "../components/TextInput";
 import GroupSelect from "../components/GroupSelect";
 import FileInput from "../components/FileInput";
@@ -10,30 +11,29 @@ import Loading from "../components/Loading";
 const Profile = () => {
   const [studentProfile, setStudentProfile] = useState({}),
   [isLoading, setIsLoading] = useState(false),
-    // [_,setCookies] = useCookies(['token']),
-    // navigate = useNavigate(),
-    API = import.meta.env.VITE_SERVER_URL;
-
+  navigate = useNavigate(),
+  API = import.meta.env.VITE_SERVER_URL;
+  // [_,setCookies] = useCookies(['token']),
+  
   useEffect(() => {
     setIsLoading(true);
-    // console.log("///");
-    Axios.post(`${API}/profile`, {withCredentials: true}) 
+    Axios.get(`${API}/profile`, {withCredentials: true})
     .then(res => {
-      // console.log(" => ");
-      // console.log(res.data);
-      setStudentProfile(res.data); 
-      setName(res.data.user.name); 
-      setGroup(res.data.group);
+      setStudentProfile(res?.data); 
+      setName(res?.data?.user?.name); 
+      setGroup(res?.data?.group);
       setIsLoading(false);
-    }).catch(error => console.log(error))
-  },[API]);
+      console.clear();
+    }).catch(()=> navigate("/login"));
+  },[API, navigate]);
 
   const [name, setName] = useState(null),
     [nameError, setNameError] = useState(false),
-    [group, setGroup] = useState(studentProfile.group),
+    [group, setGroup] = useState(studentProfile?.group),
     [groupError, setGroupError] = useState(false),
     [photo, setPhoto] = useState(null),
-    [showEdit, setShowEdit] = useState(false),
+    [editToggle, setEditToggle] = useState(false),
+    [logoutToggle, setLogoutToggle] = useState(false),
     [submitError, setSubmitError] = useState(null);
 
   function checkName(value) {
@@ -46,39 +46,29 @@ const Profile = () => {
     else {setGroupError(false); setGroup(value); return true}
   }
 
-  function checkForm(e) {
+  function updateForm(e) {
     e.preventDefault()
     if (checkName(name) && checkGroup(group)){
       const formData = new FormData();
-      formData.append('id', studentProfile.user._id);
       formData.append('name', name);
       formData.append('group', group);
       formData.append('profilePhoto', photo);
-
+      
       setIsLoading(true);
-      axiosPost(`${API}/updateStudent`, formData);
-    } else setSubmitError("check fields!")
+      Axios.post(`${API}/updateStudent`, formData, {withCredentials: true})
+      .then(() => location.reload())
+      .catch(error => {
+        setIsLoading(false); 
+        setSubmitError(error.message);
+      })
+    } else setSubmitError("check fields!");
   }
 
-  function axiosPost(url, data) {
-    Axios.post(url, data)
-    .then(res => {
-      if (res.data.code === 0) {
-        setIsLoading(false);
-        window.location.reload(true)
-      } else if (res.data.code === 1) {
-        setIsLoading(false);
-        setSubmitError(res.data.message);
-        console.log(res.data.error);
-      } else {setIsLoading(false); setSubmitError('there is error, please try again later');}
-    }).catch(() => {setIsLoading(false); setSubmitError('there is error, please try again later')})
-  }
-
-  // const removeCookies = () => {
-  //   setCookies('access_token', '')
-  //   window.localStorage.removeItem('userId')
-  //   navigate('/login')
-  // }
+  const logout = () => {
+    Axios.get(`${API}/logout`, {withCredentials: true})
+    .then(() => location.reload())
+    .catch(() => location.reload());
+  };
 
   return (
     <main>
@@ -92,25 +82,25 @@ const Profile = () => {
           <p className="std-group">group <strong>{studentProfile?.group}</strong> status <label className={`dspStatus ${studentProfile?.status}`} alt={studentProfile?.status} title={studentProfile?.status}></label></p>
         </div>
         <div className="modal-footer">
-          <button className="secBtn" onClick={()=>setShowEdit(true)}>edit profile</button>
-          <button className="secBtn danger" 
-          // onClick={removeCookies}
-          >log out</button>
+          <button className="secBtn" onClick={()=>setEditToggle(true)}>edit profile</button>
+          <button className="secBtn danger" onClick={()=>setLogoutToggle(true)}>log out</button>
         </div>
     </section>
 
-    {showEdit && <section className="add-std-sec edit-sec">
-      <form action="" className="add-std-form" onSubmit={e=>checkForm(e)}>
+    {editToggle && <section className="add-std-sec edit-sec">
+      <form action="" className="add-std-form" onSubmit={e=>updateForm(e)}>
         <TextInput label={'name'} placeholder={'full name'} defaultValue={studentProfile?.user?.name || 'profile name'} checkName={checkName} errorMessage={nameError}/>
         <GroupSelect checkGroup={checkGroup} defaultValue={group} errorMessage={groupError}/>
         <FileInput photo={photo} setPhoto={setPhoto}/>
         <div className="form-field flex-between">
-          <button type="reset" className="secBtn danger" onClick={()=>setShowEdit(false)}>cancle</button>
+          <button type="reset" className="secBtn danger" onClick={()=>setEditToggle(false)}>cancle</button>
           <button type="submit" className="btn">save</button>
         </div>
         {submitError && <p className="error-msg">{submitError}</p>}
       </form>
     </section>}
+
+    { logoutToggle && <Warn action={logout} actionLabel={'Logout'} message={'Would you like to logout?'} setToggle={setLogoutToggle} warning={true}/> }
 
     { isLoading && <Loading/> }
     </main>

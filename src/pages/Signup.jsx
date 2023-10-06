@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link, useNavigate, Navigate } from "react-router-dom";
 import TextInput from "../components/TextInput";
 import EmailInput from "../components/EmailInput";
@@ -25,15 +25,26 @@ const Signup = () => {
   const [emailError, setEmailError] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
   const [rePasswordError, setRePasswordError] = useState(false);
-  const [groupValid, setGroupValid] = useState(true);
+  const [groupValid, setGroupValid] = useState(true),
+  [keepLogin, setKeepLogin] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
-  const navigate = useNavigate()
-  const [_,setCookies] = useCookies(['access_token']);
-
-  if (window.localStorage.getItem('userEmail')) return <Navigate to={'/profile'}/>;
-
+  const navigate = useNavigate();
+  // const [_,setCookies] = useCookies(['access_token']);
   const API = import.meta.env.VITE_SERVER_URL;
+
+  useEffect(() => {
+    setIsLoading(true);
+    Axios.get(`${API}/profile`, {withCredentials: true})
+    .then(()=> {
+      setIsLoading(false);
+      navigate('/profile');
+    }).catch( error => {
+      setIsLoading(false); 
+      console.clear(); 
+      throw error;
+    });
+  },[API, navigate]);
 
   function checkName(value) {
     if (!value) {setNameError("this field required"); setName(null); return false}
@@ -70,29 +81,22 @@ const Signup = () => {
       formData.append('email', email);
       formData.append('password', password);
       formData.append('group', group);
+      formData.append('keepLogin', keepLogin);
       formData.append('profilePhoto', photo);
+      
       setIsLoading(true);
-      axiosPost(`${API}/signup`, formData);
+      Axios.post(`${API}/signup`, formData)
+      .then(() => {
+        setIsLoading(false);
+        setSubmitError("");
+        navigate('/profile');
+      }).catch(error => {
+        setIsLoading(false);
+        error.response.status == 404 ? setEmailError(error.response.data) : error.response.status == 403 ? setPasswordError(error.response.data) : setSubmitError(error.response.data);
+      });
     } else setSubmitError("check fields!")
   }
 
-  function axiosPost(url, data) {
-    Axios.post(url, data)
-    .then(res => {
-      if (res.data.code === 0) {
-        window.localStorage.setItem('userEmail', res.data.email);
-        window.localStorage.setItem('userId', res.data.userId);
-        setCookies('access_token', res.data.token);
-        setSubmitError(res.data.message);
-        setIsLoading(false);
-        navigate('/profile');
-      }else if (res.data.code === 11000) {
-        setIsLoading(false);
-        setEmailError(res.data.message);
-        setSubmitError(res.data.message);
-      } else {setIsLoading(false); setSubmitError('there is error, please try again later');}
-    }).catch(() => {setIsLoading(false); setSubmitError('there is error, please try again later');})
-  }
 
   return (
     <main>
@@ -106,7 +110,7 @@ const Signup = () => {
         <ConfirmPasswordInput checkRePassword={checkRePassword} showPassword={showPassword} setShowPassword={setShowPassword} errorMessage={rePasswordError}/>
         <GroupSelect groupValid={groupValid} checkGroup={checkGroup}/>
         <FileInput setPhoto={setPhoto}/>
-        <SubmitButton label={'sign up'}/>
+        <SubmitButton label={'sign up'} setKeepLogin={setKeepLogin}/>
         {submitError && <p className="error-msg">{submitError}</p>}
         <div className="form-field">
           <p>already have account? <Link to="/login">login</Link></p>

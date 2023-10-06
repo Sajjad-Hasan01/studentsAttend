@@ -311,7 +311,20 @@ textarea::-webkit-scrollbar{
     top: 50%;
     transform: translateY(-50%);
 }
-.file-input::after {
+.file-input[data-name]::after {
+    content: "✔";
+    text-align: center;
+    color: white;
+    background-color: lightgreen;
+    height: 25px;
+    width: 25px;
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    right: 20px;
+    transform: translateY(-50%);
+}
+/* .file-input::after {
     content: attr(data-name);
     white-space: nowrap;
     color: black;
@@ -319,7 +332,7 @@ textarea::-webkit-scrollbar{
     top: 50%;
     right: 20px;
     transform: translateY(-50%);
-}
+} */
 .select-field{
     display: flex;
     align-items: center;
@@ -369,8 +382,20 @@ textarea::-webkit-scrollbar{
     background-color: var(--PrimaryColor);
     border: none;
 }
+.btn:first-child {
+    margin-inline: auto;
+}
+button + .btn {
+    margin-inline-start: var(--val50);
+}
 .btn:is(:hover, :active, :focus-visible) {
     outline-color: var(--PrimaryHoverColor);
+}
+.btn.danger {
+    background-color: var(--Strawberry-red);
+}
+.btn.danger:is(:hover, :active, :focus-visible) {
+    outline-color: var(--Light-red);
 }
 .secBtn {
     background-color: var(--OfWhiteColor);
@@ -531,6 +556,20 @@ td:first-child, td:last-child {
     white-space: nowrap;
     text-overflow: ellipsis;
     font-size: 1.2rem;
+}
+
+/*      Alert Component     */
+.alert {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: var(--WhiteColor);
+    border-radius: 15px;
+    padding: var(--val30);
+    & .alert-message{
+        text-align: center;
+    }
 }
 
 /*     SCROLL STYLE    */
