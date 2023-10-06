@@ -18,10 +18,10 @@ exports.signupRoute = async (req, res) => {
             StudentModel.create({user: user._id, group})
             .then(() => {
                 res.cookie("access-token", accessToken, {
-                    httpOnly: false,
-                    secure: false,
+                    httpOnly: true,
+                    secure: true,
                     maxAge: 1000 * period,
-                    signed:false,
+                    signed: true,
                 }).status(201).send('Registration succeed');
             }).catch(() => res.status(501).send('there is error, please try again later'));
         }).catch(() => res.status(501).send('there is error, please try again later'));

@@ -21,10 +21,10 @@ exports.loginRoute = async (req, res) => {
 
             res
               .cookie("access-token", accessToken, {
-                httpOnly: false,
-                secure: false,
+                httpOnly: true,
+                secure: true,
                 maxAge: 1000 * period,
-                signed: false,
+                signed: true,
               })
               .status(202)
               .send("login successed");
