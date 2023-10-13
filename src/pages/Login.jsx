@@ -31,8 +31,9 @@ const Login = () => {
       navigate('/profile');
     }).catch( error => {
       setIsLoading(false); 
-      console.clear(); 
-      throw error;
+      // console.clear(); 
+      // throw error;
+      console.log(error.message);
     });
   },[API, navigate]);
 
@@ -56,9 +57,10 @@ const Login = () => {
       .then(() => {
         setIsLoading(false);
         setSubmitError("");
-        location.reload();
+        // location.reload();
       }).catch(error => {
-        setIsLoading(false);
+        // setIsLoading(false);
+        console.log(error.message);
         error.response.status == 404 ? setEmailError(error.response.data) : error.response.status == 403 ? setPasswordError(error.response.data) : setSubmitError(error.response.data);
       });
     } else setSubmitError("check fields!")
