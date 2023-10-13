@@ -24,8 +24,8 @@ const Profile = () => {
       setGroup(res?.data?.group);
       setIsLoading(false);
       console.clear();
-    }).catch(()=> navigate("/login"));
-  },[API, navigate]);
+    }).catch((e)=> console.log(e.data));
+  },[API]);
 
   const [name, setName] = useState(null),
     [nameError, setNameError] = useState(false),
