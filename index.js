@@ -20,12 +20,12 @@ const domain = process.env.DOMAIN;
 const corsOptions = {
     origin: domain,
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-    credentials: true,
+    credentials: true
 };
 
 const app = express();
 app.use(cors(corsOptions));
-app.options('*', cors(corsOptions)); // I thought this line not important
+//app.options('*', cors(corsOptions)); // I thought this line not important
 app.use(express.json());
 app.use(express.static('public'));
 app.use(cookieParser(process.env.SECRET));
@@ -44,7 +44,7 @@ app.delete('/deleteUser', async (req, res) => cookieJwtAuth(req, res, deleteUser
 app.delete('/clearCollection', async (req, res) => cookieJwtAuth(req, res, clearCollectionRoute));
 // app.post('/checkStudentsStatus', async (req, res) => cookieJwtAuth(req, res, attendCalc));
 
-app.listen(process.env.PORT, ()=>console.log("Server is live !"));
+app.listen(process.env.PORT, ()=>console.log("Server is live ! V.3"));
 
 /*
 200 OK
