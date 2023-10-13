@@ -23,7 +23,8 @@ const Profile = () => {
       setName(res?.data?.user?.name); 
       setGroup(res?.data?.group);
       setIsLoading(false);
-      console.clear();
+      // console.clear();
+      console.log(res);
     }).catch((e)=> console.log(e.data));
   },[API]);
 
