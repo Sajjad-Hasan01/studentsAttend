@@ -25,7 +25,7 @@ const Profile = () => {
       setIsLoading(false);
       // console.clear();
       console.log(res);
-    }).catch((e)=> console.log(e.data));
+    }).catch((e)=> console.log(e.message));
   },[API]);
 
   const [name, setName] = useState(null),
