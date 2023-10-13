@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken');
 
 exports.cookieJwtAuth = async (req, res, next) => {
-    const accessToken = await req.signedCookies["access-token"];
+    const accessToken = await req.cookies["access-token"];
     
     try {
         const {id} = jwt.verify(accessToken, process.env.SECRET);
